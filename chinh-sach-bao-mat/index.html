@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chính sách bảo mật — Tâm An Nguyện</title>
+<meta name="description" content="Chính sách bảo mật của Tâm An Nguyện — thông tin về cách thu thập, sử dụng và bảo vệ dữ liệu cá nhân.">
+
+<meta property="og:title" content="Chính sách bảo mật — Tâm An Nguyện">
+<meta property="og:description" content="Chính sách bảo mật của Tâm An Nguyện — thông tin về cách thu thập, sử dụng và bảo vệ dữ liệu cá nhân.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tamannguyen.com/chinh-sach-bao-mat">
+<link rel="canonical" href="https://tamannguyen.com/chinh-sach-bao-mat">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --cream:#F5EFE6;--cream2:#FAF6F0;--gold:#C9A96E;--gold2:#B8905A;
+  --gold-light:#E8D5B0;--gold-pale:#FBF4E8;--navy:#1D2951;--navy-soft:#2D3F6B;
+  --ink:#3D2B1F;--bark:#8B6F5E;--mist:#B8A99A;--rose:#D4A5A5;
+  --rose-light:#F0DEDE;--white:#FFFFFF;--teal:#3D7D6B;--teal-bg:#EEF7F4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;color:var(--navy);font-weight:600;line-height:1.15;text-wrap:balance}
+@media(max-width:380px){.hero h1,.page-hero h1{font-size:28px}}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)}
+
+.compass-div{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto}
+.compass-div .line{height:1px;width:40px;background:linear-gradient(90deg,transparent,var(--gold-light))}
+.compass-div .line.r{background:linear-gradient(90deg,var(--gold-light),transparent)}
+.compass-mark{width:16px;height:16px;position:relative;flex-shrink:0}
+.compass-mark::before,.compass-mark::after{content:'';position:absolute;background:var(--gold)}
+.compass-mark::before{width:1px;height:16px;left:50%;transform:translateX(-50%)}
+.compass-mark::after{height:1px;width:16px;top:50%;transform:translateY(-50%)}
+.compass-mark .dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--gold2);top:50%;left:50%;transform:translate(-50%,-50%)}
+
+header{position:sticky;top:0;z-index:50;background:rgba(245,239,230,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold-light)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto}
+.brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--navy);letter-spacing:.5px}
+.brand span{color:var(--gold2);font-style:italic}
+.nav-links{display:none;gap:32px;font-size:14px;font-weight:500;color:var(--navy-soft)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--gold2)}
+.nav-links a.active{color:var(--gold2)}
+.nav-cta{background:var(--navy);color:var(--white);font-size:13px;font-weight:600;padding:11px 22px;border-radius:100px;white-space:nowrap;transition:background .2s}
+.nav-cta:hover{background:var(--navy-soft)}
+@media(min-width:860px){.nav-links{display:flex}}
+.menu-btn{display:flex;background:none;border:none;font-size:22px;color:var(--navy);cursor:pointer}
+@media(min-width:860px){.menu-btn{display:none}}
+#mobile-menu{display:none;flex-direction:column;gap:18px;padding:20px 24px 28px;border-top:1px solid var(--gold-light);font-size:15px;font-weight:500;color:var(--navy-soft)}
+#mobile-menu.open{display:flex}
+
+.hero{padding:72px 24px 56px;text-align:center;position:relative}
+.hero-eyebrow{margin-bottom:18px}
+.hero h1{font-size:clamp(32px,5.5vw,52px);max-width:820px;margin:0 auto 18px}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero p{max-width:560px;margin:0 auto 34px;font-size:17px;color:var(--bark)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:20px}
+.btn-primary{background:var(--navy);color:var(--white);padding:15px 30px;border-radius:100px;font-size:15px;font-weight:600;transition:transform .2s,background .2s;display:inline-block;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--navy-soft);transform:translateY(-2px)}
+.btn-ghost{border:1.5px solid var(--gold-light);color:var(--navy);padding:15px 30px;border-radius:100px;font-size:15px;font-weight:600;transition:background .2s;display:inline-block}
+.btn-ghost:hover{background:var(--gold-pale)}
+
+.hero-icon{display:block;width:130px;margin:0 auto 8px;filter:drop-shadow(0 10px 26px rgba(61,125,107,.18))}
+.spot-icon{display:block;width:96px;margin:0 auto 24px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.25))}
+
+.pillars{padding:80px 24px 70px;text-align:center}
+.pillars .eyebrow{display:block;margin-bottom:14px}
+.pillars h2{font-size:clamp(28px,4.5vw,40px);max-width:640px;margin:0 auto 50px}
+.pillar-grid{display:grid;gap:24px;max-width:960px;margin:0 auto}
+@media(min-width:760px){.pillar-grid{grid-template-columns:repeat(3,1fr)}}
+.pillar-card{background:var(--white);border:1.5px solid var(--gold-light);border-radius:20px;padding:34px 26px;text-align:left;box-shadow:0 4px 20px rgba(201,169,110,.10);transition:transform .25s,box-shadow .25s}
+.pillar-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(201,169,110,.20)}
+.pillar-num{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-light);font-size:15px;margin-bottom:10px}
+.pillar-card h3{font-size:22px;margin-bottom:10px}
+.pillar-card p{font-size:14px;color:var(--bark);margin-bottom:16px}
+.pillar-card a{font-size:13px;font-weight:600;color:var(--gold2)}
+
+.quote-block{background:var(--navy);color:var(--cream2);padding:80px 24px;text-align:center}
+.quote-block .eyebrow{color:var(--gold)}
+.quote-block blockquote{color:var(--white);font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(22px,4vw,34px);max-width:760px;margin:20px auto 0;line-height:1.4}
+
+.spotlight{background:var(--gold-pale);padding:90px 24px}
+.spot-inner{max-width:980px;margin:0 auto;display:grid;gap:44px;align-items:center}
+@media(min-width:800px){.spot-inner{grid-template-columns:1fr 1fr}}
+.spot-visual{background:var(--navy);border-radius:24px;padding:44px 30px;text-align:center;position:relative;overflow:hidden}
+.spot-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,169,110,.18),transparent 60%)}
+.spot-visual h4{color:var(--white);font-size:24px;position:relative}
+.spot-visual p{color:#B9C2D9;font-size:13px;margin-top:8px;position:relative}
+.spot-text h2{font-size:clamp(26px,4vw,34px);margin-bottom:16px}
+.spot-text p{color:var(--bark);font-size:15px;margin-bottom:24px}
+.spot-list{list-style:none;margin-bottom:28px}
+.spot-list li{display:flex;gap:10px;font-size:14px;color:var(--ink);margin-bottom:10px;align-items:flex-start}
+.spot-list li::before{content:'✦';color:var(--gold2);flex-shrink:0;font-size:12px;margin-top:3px}
+
+.about-strip{padding:80px 24px;text-align:center}
+.about-strip .avatar{width:84px;height:84px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 auto 22px}
+.about-strip h2{font-size:clamp(24px,4vw,32px);max-width:640px;margin:0 auto 16px}
+.about-strip p{max-width:560px;margin:0 auto 26px;color:var(--bark);font-size:15px}
+.signature{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--navy-soft)}
+
+.final-cta{background:var(--navy);padding:90px 24px;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(201,169,110,.15),transparent 55%)}
+.final-cta h2{color:var(--white);font-size:clamp(28px,5vw,42px);max-width:640px;margin:0 auto 18px;position:relative}
+.final-cta p{color:#B9C2D9;max-width:480px;margin:0 auto 32px;font-size:15px;position:relative}
+
+footer{background:var(--cream2);border-top:1px solid var(--gold-light);padding:56px 24px 30px}
+.foot-grid{max-width:1080px;margin:0 auto 40px;display:grid;gap:32px}
+@media(min-width:700px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr}}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--navy);margin-bottom:10px}
+.foot-brand span{color:var(--gold2);font-style:italic}
+.foot-tag{font-size:13px;color:var(--bark);max-width:280px}
+.foot-col h5{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+.foot-col a{display:block;font-size:14px;color:var(--bark);margin-bottom:10px;transition:color .2s}
+.foot-col a:hover{color:var(--gold2)}
+.foot-bottom{max-width:1080px;margin:0 auto;padding-top:24px;border-top:1px solid var(--gold-light);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12px;color:var(--mist)}
+
+/* --- trang nội dung (legal, blog...) --- */
+.page-hero{padding:64px 24px 40px;text-align:center}
+.page-hero h1{font-size:clamp(30px,5vw,44px);margin-bottom:14px}
+.page-hero p{max-width:520px;margin:0 auto;color:var(--bark);font-size:15px}
+.content-block{max-width:760px;margin:0 auto;padding:0 24px 80px}
+.content-block h2{font-size:24px;margin:40px 0 14px}
+.content-block h2:first-child{margin-top:0}
+.content-block p{color:var(--ink);font-size:15px;margin-bottom:14px}
+.content-block ul{margin:0 0 14px 20px;color:var(--ink);font-size:15px}
+.content-block li{margin-bottom:8px}
+.note-box{background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:14px;padding:18px 22px;font-size:13px;color:var(--bark);margin:32px 0}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="/" class="brand">Tâm <span>An Nguyện</span></a>
+    <div class="nav-links">
+      <a href="/gioi-thieu">Giới thiệu</a>
+      <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+      <a href="/ai-coach">AI Coach</a>
+      <a href="/blog">Blog</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="/app" class="nav-cta" id="cta-desktop">Khám phá ngay</a>
+      <button class="menu-btn" id="menu-toggle" aria-label="Mở menu">☰</button>
+    </div>
+  </nav>
+  <div id="mobile-menu">
+    <a href="/gioi-thieu">Giới thiệu</a>
+    <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+    <a href="/ai-coach">AI Coach</a>
+    <a href="/blog">Blog</a>
+    <a href="/app" style="color:var(--gold2);font-weight:700">Khám phá La Bàn Nội Tâm →</a>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Pháp lý</span>
+    <h1 style="margin-top:14px">Chính sách bảo mật</h1>
+    <p>Cập nhật lần cuối: tháng 7, 2026</p>
+  </div>
+</section>
+
+<div class="content-block">
+  <div class="note-box">Đây là nội dung khung tham khảo (placeholder), soạn để website có thể vận hành ở giai đoạn đầu. An Nguyện khuyến nghị rà soát cùng luật sư hoặc chuyên viên pháp lý trước khi công bố chính thức, đặc biệt các phần liên quan đến thu thập dữ liệu cá nhân và Google Analytics.</div>
+
+  <h2>1. Thông tin An Nguyện thu thập</h2>
+  <p>Khi bạn sử dụng công cụ La Bàn Nội Tâm, An Nguyện thu thập họ tên và ngày sinh mà bạn cung cấp để tạo bản đồ cá nhân hoá. Thông tin này được lưu trên chính thiết bị của bạn (localStorage) nhằm tự động điền lại ở lần truy cập sau, An Nguyện không lưu trữ thông tin này trên máy chủ.</p>
+  <p>Website sử dụng Google Analytics để thống kê lượt truy cập ẩn danh, giúp An Nguyện hiểu và cải thiện trải nghiệm sử dụng.</p>
+
+  <h2>2. Mục đích sử dụng thông tin</h2>
+  <ul>
+    <li>Tạo bản đồ cá nhân hoá theo yêu cầu của bạn</li>
+    <li>Cải thiện chất lượng nội dung và trải nghiệm website</li>
+    <li>Liên hệ với bạn nếu bạn chủ động để lại email đăng ký nhận thông báo (ví dụ: AI Coach, Blog)</li>
+  </ul>
+
+  <h2>3. Chia sẻ thông tin</h2>
+  <p>An Nguyện không bán, cho thuê, hay chia sẻ thông tin cá nhân của bạn cho bên thứ ba nhằm mục đích thương mại.</p>
+
+  <h2>4. Quyền của bạn</h2>
+  <p>Bạn có thể xoá dữ liệu đã lưu trên thiết bị của mình bất kỳ lúc nào bằng cách xoá dữ liệu trình duyệt (browser data) liên quan đến website này.</p>
+
+  <h2>5. Liên hệ</h2>
+  <p>Nếu bạn có câu hỏi về chính sách bảo mật này, vui lòng liên hệ qua email được cung cấp trên website.</p>
+</div>
+
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">Tâm <span>An Nguyện</span></div>
+      <p class="foot-tag">Thấu hiểu bản thân, làm chủ cuộc đời. Giúp bạn định vị giá trị bản thân và tìm lại phương hướng trong sự nghiệp.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Khám phá</h5>
+      <a href="/gioi-thieu">Giới thiệu</a>
+      <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+      <a href="/ai-coach">AI Coach</a>
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="foot-col">
+      <h5>Thông tin</h5>
+      <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+      <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Tâm An Nguyện</span>
+    <span>tamannguyen.com</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menu-toggle').addEventListener('click',function(){
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
