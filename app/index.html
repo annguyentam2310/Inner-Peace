@@ -1640,11 +1640,18 @@ function openDetail(key, fromInput){
     if(r.karmicDebt.length===0){
       interp.innerHTML='<div class="no-data-box"><p class="prose-text">Không có chỉ số bài học — con đường ở kiếp này diễn ra suôn sẻ hơn, nhưng vẫn cần nỗ lực và kiên trì để đạt được các mục tiêu trong cuộc sống.<\/p><\/div>';
     } else {
-      interp.innerHTML=r.karmicDebt.map(k=>{
-        const km=KAR_M[k.number];if(!km)return'';
+      // Group theo số — cùng chỉ số ở nhiều vị trí → gộp vị trí, diễn giải 1 lần
+      const grouped={};
+      r.karmicDebt.forEach(k=>{
+        if(!grouped[k.number]) grouped[k.number]={number:k.number,locations:[]};
+        grouped[k.number].locations.push(k.location);
+      });
+      interp.innerHTML=Object.values(grouped).map(g=>{
+        const km=KAR_M[g.number];if(!km)return'';
+        const locStr=g.locations.join(' · ');
         return`<div class="karmic-entry">
-          <div class="karmic-num">${k.number}<\/div>
-          <div class="karmic-loc">${km.title} · Vị trí: ${k.location}<\/div>
+          <div class="karmic-num">${g.number}<\/div>
+          <div class="karmic-loc">${km.title} · Vị trí: ${locStr}<\/div>
           <div style="margin-bottom:10px;"><div class="lesson-lbl">BÀI HỌC DỄ GẶP PHẢI<\/div><ul class="energy-list">${km.easy.map(i=>`<li>${i}<\/li>`).join('')}<\/ul><\/div>
           <div style="display:flex;align-items:center;gap:8px;margin:12px 0"><div style="flex:1;height:1px;background:var(--gold-light)"><\/div><span style="color:var(--gold);font-size:11px;">✦<\/span><div style="flex:1;height:1px;background:var(--gold-light)"><\/div><\/div>
           <div><div class="lesson-lbl grad">Để tốt nghiệp bài học<\/div><ul class="energy-list">${km.grad.map(i=>`<li>${i}<\/li>`).join('')}<\/ul><\/div>
@@ -1823,6 +1830,21 @@ function goToOverview(){showScreen('s-overview')}
 function goToInput(){showScreen('s-input')}
 
 function goToPyramid(){
+  // Chỉ Owner mới xem được — người dùng thường thấy thông báo "đang phát triển"
+  if(localStorage.getItem('lbnt_owner')!=='1'){
+    const overlay=document.createElement('div');
+    overlay.style.cssText='position:fixed;inset:0;background:rgba(29,41,81,.55);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:0 0 40px;backdrop-filter:blur(4px);';
+    overlay.innerHTML=`
+      <div style="background:#FAF6F0;border-radius:20px;padding:32px 24px 28px;width:100%;max-width:440px;margin:0 16px;box-shadow:0 -4px 32px rgba(29,41,81,.15);text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🌱</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.3;">Dự án đang phát triển</p>
+        <p style="font-size:14px;color:var(--bark);line-height:1.7;margin-bottom:24px;">Bạn vui lòng quay lại sau nhé!</p>
+        <button onclick="this.closest('div').parentElement.remove()" style="padding:13px 32px;border-radius:12px;border:1.5px solid var(--gold);background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--navy);cursor:pointer;">Đóng</button>
+      </div>`;
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+    return;
+  }
   if(!_result) return;
   const r=_result;
 
