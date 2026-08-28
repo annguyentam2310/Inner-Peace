@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ══════════════════════════════════════════════════════════
+     CHỖ SỐ 1 — ĐIỀN TIÊU ĐỀ BÀI VIẾT (xuất hiện ở 4 chỗ bên dưới)
+     ══════════════════════════════════════════════════════════ -->
+<title>Tên bài viết ở đây — Blog Tâm An Nguyện</title>
+<meta name="description" content="Một câu mô tả ngắn gọn (1-2 câu) tóm tắt nội dung bài viết, dùng để hiện trên Google.">
+
+<meta property="og:title" content="Tên bài viết ở đây — Blog Tâm An Nguyện">
+<meta property="og:description" content="Một câu mô tả ngắn gọn (1-2 câu) tóm tắt nội dung bài viết.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tamannguyen.com/blog/bai-viet-mau/">
+<link rel="canonical" href="https://tamannguyen.com/blog/bai-viet-mau/">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --cream:#F5EFE6;--cream2:#FAF6F0;--gold:#C9A96E;--gold2:#B8905A;
+  --gold-light:#E8D5B0;--gold-pale:#FBF4E8;--navy:#1D2951;--navy-soft:#2D3F6B;
+  --ink:#3D2B1F;--bark:#8B6F5E;--mist:#B8A99A;--rose:#D4A5A5;
+  --rose-light:#F0DEDE;--white:#FFFFFF;--teal:#3D7D6B;--teal-bg:#EEF7F4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;color:var(--navy);font-weight:600;line-height:1.15;text-wrap:balance}
+@media(max-width:380px){.hero h1,.page-hero h1{font-size:28px}}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)}
+
+header{position:sticky;top:0;z-index:50;background:rgba(245,239,230,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold-light)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto}
+.brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--navy);letter-spacing:.5px}
+.brand span{color:var(--gold2);font-style:italic}
+.nav-links{display:none;gap:32px;font-size:14px;font-weight:500;color:var(--navy-soft)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--gold2)}
+.nav-links a.active{color:var(--gold2)}
+.nav-cta{background:var(--navy);color:var(--white);font-size:13px;font-weight:600;padding:11px 22px;border-radius:100px;white-space:nowrap;transition:background .2s}
+.nav-cta:hover{background:var(--navy-soft)}
+@media(min-width:860px){.nav-links{display:flex}}
+.menu-btn{display:flex;background:none;border:none;font-size:22px;color:var(--navy);cursor:pointer}
+@media(min-width:860px){.menu-btn{display:none}}
+#mobile-menu{display:none;flex-direction:column;gap:18px;padding:20px 24px 28px;border-top:1px solid var(--gold-light);font-size:15px;font-weight:500;color:var(--navy-soft)}
+#mobile-menu.open{display:flex}
+
+.btn-primary{background:var(--navy);color:var(--white);padding:15px 30px;border-radius:100px;font-size:15px;font-weight:600;transition:transform .2s,background .2s;display:inline-block;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--navy-soft);transform:translateY(-2px)}
+
+.final-cta{background:var(--navy);padding:90px 24px;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(201,169,110,.15),transparent 55%)}
+.final-cta h2{color:var(--white);font-size:clamp(28px,5vw,42px);max-width:640px;margin:0 auto 18px;position:relative}
+.final-cta p{color:#B9C2D9;max-width:480px;margin:0 auto 32px;font-size:15px;position:relative}
+.final-cta .btn-primary{background:var(--white);color:var(--navy);position:relative;z-index:2}
+.final-cta .btn-primary:hover{background:var(--gold-pale);color:var(--navy)}
+
+footer{background:var(--cream2);border-top:1px solid var(--gold-light);padding:56px 24px 30px}
+.foot-grid{max-width:1080px;margin:0 auto 40px;display:grid;gap:32px}
+@media(min-width:700px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr}}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--navy);margin-bottom:10px}
+.foot-brand span{color:var(--gold2);font-style:italic}
+.foot-tag{font-size:13px;color:var(--bark);max-width:280px}
+.foot-col h5{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+.foot-col a{display:block;font-size:14px;color:var(--bark);margin-bottom:10px;transition:color .2s}
+.foot-col a:hover{color:var(--gold2)}
+.foot-bottom{max-width:1080px;margin:0 auto;padding-top:24px;border-top:1px solid var(--gold-light);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12px;color:var(--mist)}
+
+/* --- trang bài viết --- */
+.page-hero{padding:56px 24px 30px;text-align:center}
+.back-link{display:inline-block;font-size:13px;font-weight:600;color:var(--gold2);margin-bottom:20px}
+.page-hero .post-date{display:block;font-size:12px;color:var(--mist);margin-bottom:14px;letter-spacing:1px;text-transform:uppercase}
+.page-hero h1{font-size:clamp(28px,5vw,42px);margin-bottom:14px;max-width:760px;margin-left:auto;margin-right:auto}
+.content-block{max-width:700px;margin:0 auto;padding:0 24px 60px}
+.content-block h2{font-size:24px;margin:40px 0 14px}
+.content-block h2:first-child{margin-top:0}
+.content-block p{color:var(--ink);font-size:16px;margin-bottom:16px;line-height:1.75}
+.content-block ul{margin:0 0 16px 20px;color:var(--ink);font-size:16px}
+.content-block li{margin-bottom:8px}
+.content-block img{width:100%;border-radius:16px;margin:28px 0}
+.content-block figure{margin:28px 0}
+.content-block figcaption{text-align:center;font-size:13px;color:var(--mist);margin-top:10px;font-style:italic}
+.content-block blockquote{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:24px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--navy-soft)}
+.post-signature{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--gold-light)}
+.post-signature p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--navy-soft)}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="/" class="brand">Tâm <span>An Nguyện</span></a>
+    <div class="nav-links">
+      <a href="/gioi-thieu">Giới thiệu</a>
+      <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+      <a href="/ai-coach">AI Coach</a>
+      <a href="/blog" class="active">Blog</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="/app" class="nav-cta" id="cta-desktop">Khám phá ngay</a>
+      <button class="menu-btn" id="menu-toggle" aria-label="Mở menu">☰</button>
+    </div>
+  </nav>
+  <div id="mobile-menu">
+    <a href="/gioi-thieu">Giới thiệu</a>
+    <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+    <a href="/ai-coach">AI Coach</a>
+    <a href="/blog">Blog</a>
+    <a href="/app" style="color:var(--gold2);font-weight:700">Khám phá La Bàn Nội Tâm →</a>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <a href="/blog" class="back-link">← Quay lại Blog</a>
+
+    <!-- CHỖ SỐ 2 — ĐIỀN NGÀY ĐĂNG BÀI -->
+    <span class="post-date">01 Tháng 8, 2026</span>
+
+    <!-- CHỖ SỐ 3 — ĐIỀN LẠI TIÊU ĐỀ BÀI VIẾT (giống hệt Chỗ số 1 ở trên) -->
+    <h1>Tên bài viết ở đây</h1>
+  </div>
+</section>
+
+<div class="content-block">
+
+  <!-- ══════════════════════════════════════════════════════════
+       CHỖ SỐ 4 — ĐIỀN NỘI DUNG BÀI VIẾT
+       Xoá hết phần mẫu bên dưới, viết nội dung thật của chị vào.
+       Có thể dùng các thẻ này để định dạng:
+         <h2>...</h2>         → tiêu đề phụ trong bài
+         <p>...</p>           → đoạn văn thường
+         <ul><li>...</li></ul> → gạch đầu dòng
+         <blockquote>...</blockquote> → trích dẫn nổi bật
+       ══════════════════════════════════════════════════════════ -->
+
+  <p>Đây là đoạn mở đầu của bài viết. Chị viết dẫn nhập ngắn gọn, chạm vào cảm xúc hoặc câu hỏi mà người đọc đang có, để họ muốn đọc tiếp.</p>
+
+  <h2>Một tiêu đề phụ ở đây</h2>
+  <p>Đây là một đoạn nội dung. Chị có thể viết bao nhiêu đoạn tuỳ ý, chỉ cần lặp lại thẻ <code>&lt;p&gt;...&lt;/p&gt;</code> cho mỗi đoạn văn mới.</p>
+
+  <!-- ══════════════════════════════════════════════════════════
+       VÍ DỤ CHÈN HÌNH ẢNH — copy 1 trong 2 khối bên dưới vào chỗ
+       chị muốn hình xuất hiện, rồi sửa "ten-file-anh.jpg" đúng tên
+       file ảnh chị đã upload (xem hướng dẫn upload ảnh riêng)
+       ══════════════════════════════════════════════════════════ -->
+
+  <!-- Cách 1: ảnh đơn giản, không chú thích -->
+  <img src="ten-file-anh.jpg" alt="Mô tả ngắn về hình ảnh (bắt buộc, giúp SEO và người khiếm thị)">
+
+  <!-- Cách 2: ảnh có chú thích bên dưới -->
+  <figure>
+    <img src="ten-file-anh.jpg" alt="Mô tả ngắn về hình ảnh">
+    <figcaption>Chú thích ngắn cho hình ảnh này</figcaption>
+  </figure>
+
+  <ul>
+    <li>Một ý gạch đầu dòng</li>
+    <li>Một ý gạch đầu dòng khác</li>
+  </ul>
+
+  <blockquote>Một câu trích dẫn muốn làm nổi bật trong bài, ví dụ một câu triết lý hoặc thông điệp chính.</blockquote>
+
+  <p>Đoạn kết bài, có thể là lời nhắn nhủ hoặc câu hỏi mở để người đọc suy ngẫm.</p>
+
+  <div class="post-signature">
+    <p>— An Nguyện</p>
+  </div>
+
+</div>
+
+</main>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Muốn hiểu rõ hơn về chính mình?</h2>
+    <p>Khám phá La Bàn Nội Tâm — bước đầu tiên trên hành trình quay về bên trong.</p>
+    <a href="/app" class="btn-primary">Khám phá La Bàn Nội Tâm</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">Tâm <span>An Nguyện</span></div>
+      <p class="foot-tag">Thấu hiểu bản thân, làm chủ cuộc đời. Giúp bạn định vị giá trị bản thân và tìm lại phương hướng trong sự nghiệp.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Khám phá</h5>
+      <a href="/gioi-thieu">Giới thiệu</a>
+      <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+      <a href="/ai-coach">AI Coach</a>
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="foot-col">
+      <h5>Thông tin</h5>
+      <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+      <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 A.N.T</span>
+    <span><a href="mailto:annguyen.tam2310@gmail.com" style="color:inherit">annguyen.tam2310@gmail.com</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menu-toggle').addEventListener('click',function(){
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
