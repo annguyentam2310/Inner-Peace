@@ -424,24 +424,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 <div id="s-pyramid" class="screen">
   <!-- Header sáng, nhẹ nhàng — không dùng nền tối -->
   <div style="background:var(--cream);padding:20px 20px 16px;border-bottom:1px solid var(--gold-light);position:sticky;top:0;z-index:50;">
-    <div style="font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:4px;">Hành trình cuộc đời</div>
+    <div style="font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:4px;">Thước Phim Cuộc Đời</div>
     <div id="pyr-header-name" style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,24px);font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></div>
   </div>
-  <div style="max-width:640px;margin:0 auto;padding:24px 16px 48px;background:var(--cream);">
-    <div style="text-align:center;margin-bottom:20px;">
+  <div style="max-width:640px;margin:0 auto;padding:20px 16px 48px;background:var(--cream);">
+    <!-- Title only — subtitle moved below SVG -->
+    <div style="text-align:center;margin-bottom:16px;">
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5.5vw,36px);font-weight:700;color:var(--navy);">Thước Phim Cuộc Đời</h2>
-      <p style="font-size:13px;color:var(--bark);margin-top:6px;line-height:1.6;font-style:italic;">4 đỉnh cao định hình hành trình của bạn</p>
     </div>
 
     <!-- SVG Kim tự tháp -->
-    <div style="width:100%;margin:8px auto 28px;overflow:visible;" id="pyr-svg-wrap"></div>
+    <div style="width:100%;margin:0 auto 10px;overflow:visible;" id="pyr-svg-wrap"></div>
 
-    <!-- Cards 4 đỉnh -->
+    <!-- Subtitle dưới tam giác -->
+    <div style="text-align:center;margin-bottom:24px;padding:0 16px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,4.2vw,23px);font-weight:600;color:var(--navy);line-height:1.5;font-style:italic;">4 Giai đoạn hình thành nên thước phim cuộc đời bạn</p>
+    </div>
+
+    <!-- Cards 4 giai đoạn -->
     <div id="pyr-cards" style="display:flex;flex-direction:column;gap:10px;"></div>
 
     <!-- Ghi chú -->
     <div style="background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:14px;padding:14px 16px;margin-top:16px;">
-      <p style="font-size:12px;color:var(--bark);line-height:1.7;text-align:center;font-style:italic;">✦ Mỗi đỉnh cao là một giai đoạn năng lượng nổi bật, mang đến cơ hội để bạn phát triển và bứt phá.</p>
+      <p style="font-size:12px;color:var(--bark);line-height:1.7;text-align:center;font-style:italic;">Mỗi giai đoạn sẽ mang một nguồn năng lượng riêng, gọi là "Chặng" — có ánh sáng để bạn tỏa sáng, và cũng có thách thức để bạn trưởng thành. Hãy chạm vào từng Chặng, để thấy rõ hành trình bạn đã và đang đi qua.</p>
     </div>
 
     <!-- Back -->
@@ -1827,6 +1832,203 @@ function openDetail(key, fromInput){
 }
 
 function goToOverview(){showScreen('s-overview')}
+
+// Global — gọi được từ onclick trong innerHTML
+function openPeakDetail(gdIdx,chanVal,thachVal){
+  try{
+  const existing=document.getElementById('pyr-detail-sheet');
+  if(existing)existing.remove();
+  const st=window._pyrState;
+  if(!st)return;
+  const {PEAK_DATA,PEAK_VALS,PEAK_RANGES,COLORS}=st;
+  const col=COLORS[gdIdx];
+
+  // ── Ý nghĩa giai đoạn ──
+  const GD_MEANING=[
+    'Giai đoạn đầu tiên đóng vai trò đặt nền móng cho cả một đời người. Khoảng thời gian này chứa đựng những biến đổi đáng kể về tâm hồn và thể chất, chính điều này định hình niềm tin, bản sắc và tiềm năng tương lai của mỗi người.',
+    'Giai đoạn 2 thường được coi là giai đoạn trưởng thành, là thời điểm bắt đầu có sự ổn định trong cuộc sống. Đây là lúc đánh dấu sự thay đổi rõ rệt về mặt nhận thức và quan điểm sống.',
+    'Sau hai giai đoạn đầu tập trung vào việc xây dựng nền móng cho đà phát triển của bản thân, Giai đoạn 3 là khoảng thời gian để tĩnh lại và lắng nghe xem bản thân thực sự cần gì, từ đó vạch ra được hướng đi phù hợp trong thời gian tiếp theo.',
+    'Giai đoạn 4 cùng với những cơ hội và thách thức tại thời điểm này giúp biết mình nên làm gì để vừa cống hiến giúp xã hội chuyển hóa tốt đẹp, vừa thoải mái tận hưởng cuộc sống. Để giai đoạn này gặt hái được thành công, cần nỗ lực học tập, rèn luyện và phát triển bản thân đúng hướng từ các giai đoạn trước.',
+  ];
+
+  // ── Data Chặng & Thách thức đầy đủ từ tài liệu ──
+  const CHAN_DATA={
+    // GĐ1
+    'gd1_chan1':{opp:['Rèn luyện sự độc lập — học cách giải quyết vấn đề và đối mặt với những tình huống khó khăn một cách tự lập; được tiếp thêm lòng can đảm, sự tự tin để làm chủ cuộc sống.','Phát triển khả năng lãnh đạo — có nhiều cơ hội để đặt những viên gạch đầu tiên trên hành trình trở thành người lãnh đạo; có thể khởi xướng dự án hoặc thành lập công ty/doanh nghiệp riêng.','Tiên phong và tạo ra giá trị mới — cần can đảm bước ra khỏi vùng an toàn, dám nghĩ khác biệt, đứng lên hành động, dẫn đầu để tạo ra xu hướng hoặc thành tựu mới.']},
+    'gd1_chan2':{opp:['Xây dựng những mối quan hệ chất lượng — dành nhiều thời gian để thấu hiểu và gắn bó với gia đình; mở lòng và tạo dựng những mối quan hệ bạn bè đáng quý; mở rộng mạng lưới quan hệ xã hội trong lĩnh vực mình đam mê.','Phát huy trực giác — nhạy cảm hơn với môi trường và cảm xúc của mọi người xung quanh; dành thời gian nghiên cứu về thế giới siêu hình, tâm lý, hay lĩnh vực liên quan đến việc giúp đỡ người khác.','Cân bằng cuộc sống và công việc — có thời gian thư giãn, giải tỏa căng thẳng để tăng cường sức khỏe tinh thần và sẵn sàng đối mặt với những thử thách mới.']},
+    'gd1_chan3':{opp:['Trau dồi khả năng sáng tạo — cuộc sống ban tặng những trải nghiệm để nuôi dưỡng năng lực sáng tạo qua vẽ tranh, viết lách, âm nhạc; khám phá các lĩnh vực nghệ thuật và xây dựng nhân hiệu.','Phát huy khả năng ngôn ngữ và giao tiếp — trau dồi kỹ năng lắng nghe và chia sẻ, tự tin thể hiện ý kiến cũng như thấu hiểu người khác tốt hơn.','Mở rộng từ vựng và thực hành giao tiếp hằng ngày để nâng cao khả năng biểu đạt.']},
+    'gd1_chan4':{opp:['Rèn luyện tính kỷ luật — đối diện với nhiều quyết định quan trọng; cần kiên nhẫn, kiên định và không chùn bước trước khó khăn; từ những thất bại sẽ khám phá ra tiềm năng bản thân.','Xây dựng nền tảng — 30 năm đầu là thời kỳ để xác định hướng đi; cuộc sống ban tặng cơ hội tiếp thu tri thức, hình thành cá tính và tìm kiếm đam mê.']},
+    'gd1_chan5':{opp:['Trải nghiệm và học hỏi — cuộc sống mang đến nhiều trải nghiệm mới mẻ để mở mang kinh nghiệm sống và khám phá thế giới xung quanh; học hỏi từ các nền văn hóa giúp mở rộng tư duy sáng tạo.','Đón nhận những thay đổi — học cách thích nghi với những biến đổi từ nhiều khía cạnh như công việc, gia đình, mối quan hệ; tìm được cách tạo sự cân bằng trong cuộc sống.']},
+    'gd1_chan6':{opp:['Xây dựng kết nối với gia đình — nhiều cơ hội đáng quý để xây dựng mối quan hệ thân tình và tìm thấy hạnh phúc trong sự gắn kết; là thời điểm thích hợp để cam kết với các quyết định quan trọng như kết hôn, sinh con, chăm sóc gia đình.','Phụng sự cộng đồng — có thể hỗ trợ gia đình lúc khó khăn, giúp đỡ bạn bè vượt qua thử thách, tham gia hoạt động thiện nguyện — tạo dựng lòng nhân ái và sẻ chia yêu thương.']},
+    'gd1_chan7':{opp:['Phát triển bản thân — khám phá và rèn luyện những khả năng tiềm ẩn, hướng tới phiên bản tốt nhất; xây dựng kỹ năng mới từ học ngoại ngữ đến kỹ năng chuyên môn.','Hướng về tâm linh — nghiên cứu và tìm hiểu thế giới siêu hình, tin tưởng vào trực giác và bắt đầu thực hành một bộ môn về tâm linh, hướng đến hạnh phúc và thành công.']},
+    'gd1_chan8':{opp:['Tạo dựng nền tảng tài chính — khai thác nguồn lợi về tiền bạc và vật chất; làm việc chăm chỉ và đưa ra những quyết định đúng đắn để xây dựng nền tài chính vững mạnh.','Cơ hội phát triển sự nghiệp — phát triển kỹ năng chuyên môn và lãnh đạo, đóng góp tích cực và có khả năng thăng tiến; lập kế hoạch, xác định lĩnh vực và tiến tới mở công ty riêng.']},
+    'gd1_chan9':{opp:['Rèn luyện lòng trắc ẩn — vượt khỏi giới hạn bản thân và giúp đỡ mọi người vượt qua những nỗi đau về thể xác, tinh thần; lòng trắc ẩn giúp xác định giá trị thực sự của cuộc sống.','Tư tưởng phóng khoáng — tư duy mở rộng và linh hoạt, nhìn nhận thế giới từ nhiều góc độ; xây dựng cộng đồng đa văn hóa, đoàn kết bằng sự tôn trọng và chấp nhận sự khác biệt.','Thủ lĩnh tinh thần — trở thành nguồn động lực lớn lao cho đội nhóm, làm chỗ dựa tinh thần, cùng nhau vượt qua khó khăn hướng tới thành công.']},
+    // GĐ2
+    'gd2_chan1':{opp:['Phát huy sức mạnh và tiềm năng — đã có đủ sức khỏe, trí lực và kinh nghiệm để thực hiện những mục tiêu lớn; tự tin đương đầu với những thử thách, không ngại thất bại.','Khẳng định tính tự chủ và độc lập — tự lập về kinh tế, tài chính và tinh thần; năng lượng giai đoạn này thích hợp để khởi nghiệp và thực hiện ước mơ làm chủ.','Lãnh đạo chính mình và học cách lãnh đạo người khác — tích lũy kinh nghiệm để dẫn dắt một nhóm người, tổ chức, doanh nghiệp đạt được những thành công nhất định.']},
+    'gd2_chan2':{opp:['Xây dựng các mối quan hệ lành mạnh và chất lượng — nhờ kinh nghiệm và sự chín chắn để kết nối với người cùng chí hướng, là chìa khóa phát triển bản thân và tìm cơ hội mới.','Kết nối và hợp tác hiệu quả — sự tinh tế, khả năng lắng nghe và hướng đến lợi ích chung tạo môi trường tin tưởng, tăng hiệu quả công việc và tạo giá trị mới.','Kích hoạt khả năng trực giác — trực giác nhạy bén giúp dự đoán và phân tích tình huống hiệu quả; lắng nghe bản thân, hiểu rõ mong muốn và giá trị của mình.']},
+    'gd2_chan3':{opp:['Thể hiện bản thân, định hình phong cách sống riêng — chia sẻ suy nghĩ, cảm xúc và giá trị bản thân; chủ động tìm kiếm cơ hội và xây dựng thương hiệu cá nhân mạnh mẽ.','Tận dụng kỹ năng giao tiếp — kết hợp linh hoạt sự tự tin, kỷ luật và khả năng ngôn từ để truyền cảm hứng và tỏa sáng.','Theo đuổi đam mê — tìm kiếm lĩnh vực phù hợp với khả năng, vun bồi năng lực ngôn ngữ và trở nên nổi bật giữa tập thể.']},
+    'gd2_chan4':{opp:['Đầu tư cho việc nâng cao chuyên môn — chủ động tìm kiếm thử thách mới, tham gia khóa học để phát triển kỹ năng và mở rộng mối quan hệ; tiếp tục đầu tư cho trí tuệ và nghiên cứu.','Định vị bản thân — dùng kiến thức chuyên môn để trao giá trị tới mọi người; dần gặt hái được thành tựu như tấm bằng, chứng chỉ, công việc tốt hoặc sức khỏe dẻo dai.','Lập kế hoạch chi tiết và cụ thể cho tương lai — kế hoạch càng cụ thể càng giúp hành động dễ dàng và nhìn được bức tranh phát triển bản thân.']},
+    'gd2_chan5':{opp:['Mở lòng chào đón cơ hội mới — giai đoạn này mở ra nhiều cánh cửa, thúc đẩy bước ra khỏi vùng an toàn; gặp gỡ những con người thú vị để đưa ra quyết định mang tính đột phá.','Rèn luyện thái độ sống tích cực — tự lập về kinh tế và tinh thần; năng lượng giai đoạn này thích hợp để khởi nghiệp và thực hiện ước mơ làm chủ.','Suy nghĩ thực tế và học cách thích nghi — linh hoạt trong mọi tình huống, chủ động tìm kiếm cơ hội ngay cả trong thách thức, không bỏ cuộc giữa chừng.']},
+    'gd2_chan6':{opp:['Dành nhiều thời gian hướng về gia đình — cơ hội xây dựng gia đình hạnh phúc, phát triển kỹ năng quản lý thời gian và nguồn lực, xây dựng nền tảng giáo dục cho thế hệ kế tiếp.','Cân bằng giữa công việc và cuộc sống cá nhân — chủ động quản lý thời gian hiệu quả, tránh căng thẳng, có thời gian yêu thương bản thân và lan tỏa tình yêu tới mọi người.','Phụng sự và trao gửi tình thương — tham gia hoạt động xã hội, dự án cộng đồng, góp phần vào sự phát triển tích cực của xã hội.']},
+    'gd2_chan7':{opp:['Nâng cấp trí tuệ và phát triển bản thân — xây dựng kỹ năng, mở rộng kiến thức và định hình giá trị cốt lõi; liên tục học hỏi qua đọc sách, khóa học hoặc kết nối với người có chuyên môn cao.','Dành thời gian chiêm nghiệm và kết nối với bản ngã — tìm hiểu về bản thân là chìa khóa để có cuộc sống ý nghĩa; đặt câu hỏi về giá trị, mục tiêu và ý nghĩa cuộc sống.','Nghiên cứu quy luật vũ trụ — chiêm nghiệm và tu tập để hiểu những quy luật như nhân quả, gieo hạt, hấp dẫn giúp thay đổi tư duy và hành động.']},
+    'gd2_chan8':{opp:['Thăng tiến trong sự nghiệp — thành quả cho sự nỗ lực cống hiến dần xuất hiện qua sự thăng tiến và nâng cao vị thế; tiếng nói trở nên có giá trị và sức ảnh hưởng lớn.','Đón nhận cơ hội kinh doanh và khởi nghiệp — đây là thời điểm thích hợp để bắt tay vào thực hiện những ấp ủ và dự án mới.','Chăm chỉ làm việc và phát triển tư duy độc lập — rèn luyện tư duy qua việc tự quyết, dám làm và có đủ năng lực chịu trách nhiệm.']},
+    'gd2_chan9':{opp:['Mở rộng tầm nhìn và sống với lý tưởng lớn — nhìn nhận cuộc sống từ góc độ rộng hơn, vượt khỏi lợi ích cá nhân để quan tâm đến cộng đồng và những vấn đề nhân văn.','Hoàn tất và buông bỏ chu kỳ cũ — khép lại công việc, mối quan hệ không còn phù hợp; buông bỏ đúng lúc giúp giải phóng năng lượng và mở ra những cơ hội có ý nghĩa hơn.','Lan tỏa tri thức và phụng sự — phát huy năng lực giảng dạy, cố vấn, truyền cảm hứng hoặc tham gia dự án phục vụ cộng đồng.']},
+    // GĐ3
+    'gd3_chan1':{opp:['Dám mơ lớn — với sự độc lập và lòng can đảm, có đủ niềm tin và năng lực để tự chọn một con đường riêng mà không bị ảnh hưởng bởi quan điểm người khác.','Xây dựng tầm nhìn — phát huy khả năng nhìn xa trông rộng và tư duy tiên phong; đây là thời điểm phát huy tiềm năng trở thành nhà lãnh đạo.','Chủ động và dẫn đầu — tích lũy đủ sự tự tin để lựa chọn hướng đi riêng, không ngại thử thách bản thân trong những lĩnh vực mới.']},
+    'gd3_chan2':{opp:['Chiều sâu trong các mối quan hệ — cơ hội xây dựng những kết nối ý nghĩa và bền vững; trở thành người lắng nghe và thấu hiểu đáng tin cậy.','Phát triển vai trò cố vấn và mentor — chia sẻ kinh nghiệm và hướng dẫn người khác, đặc biệt là thế hệ trẻ.','Học cách cân bằng giữa cuộc sống cá nhân và sự nghiệp, nuôi dưỡng các mối quan hệ có chiều sâu.']},
+    'gd3_chan3':{opp:['Tích lũy đủ kinh nghiệm để tạo ra giá trị và gây ảnh hưởng rộng lớn hơn; thể hiện bản thân và sẵn sàng tỏa sáng.','Chia sẻ kiến thức và câu chuyện để truyền cảm hứng cho người khác; tham gia hoạt động sáng tạo.','Phát triển phong cách cá nhân độc đáo trong lĩnh vực sáng tạo và giao tiếp.']},
+    'gd3_chan4':{opp:['Xây dựng di sản — tạo ra những công trình hoặc hệ thống có giá trị lâu dài.','Phát triển kỹ năng lãnh đạo trong việc xây dựng và quản lý đội nhóm.','Tập trung vào chất lượng và tính bền vững trong mọi dự án và cam kết.']},
+    'gd3_chan5':{opp:['Cơ hội thay đổi, trải nghiệm những điều mà trước đó chưa dám thử; phát huy tiềm lực sáng tạo để thay đổi tầng nhận thức.','Dùng bản lĩnh đã được tôi luyện qua năm tháng để kiên định với mục tiêu; thích hợp để thử thách và tự nhìn nhận bản thân.','Học bài học về cách cân bằng giữa cảm xúc với lý trí để tránh ảo tưởng.']},
+    'gd3_chan6':{opp:['Chăm sóc và quan tâm gia đình nhiều hơn; bảo vệ và chăm sóc cho các thế hệ sau, tạo môi trường gia đình ấm cúng.','Thực hiện thiện nguyện, giúp đỡ hoàn cảnh khó khăn, lan tỏa và truyền cảm hứng về những giá trị nhân văn.','Nâng cao tinh thần trách nhiệm — đây là cơ hội để thay đổi nhận thức về trách nhiệm trong mọi khía cạnh cuộc sống.']},
+    'gd3_chan7':{opp:['Chiêm nghiệm sâu sắc hơn về các quy luật của vũ trụ và kết nối với bản thể bên trong; trở thành người có tầm nhìn rộng, được mọi người tin tưởng.','Tập trung vào một chuyên môn sâu; đào sâu nghiên cứu để tạo ra giá trị bền lâu cho xã hội.','Kết nối với bên trong — khám phá khía cạnh liên quan đến nội tâm và tâm linh.']},
+    'gd3_chan8':{opp:['Phát triển và mở rộng ảnh hưởng trong lĩnh vực chuyên môn; cơ hội xây dựng tài sản và di sản tài chính bền vững.','Phát triển kỹ năng lãnh đạo ở tầm cao hơn, quản trị những dự án có tầm vóc lớn.','Xác định con người thực sự của mình; nhận thức được sứ mệnh và chia sẻ những giá trị với thế giới.']},
+    'gd3_chan9':{opp:['Mở rộng tầm nhìn — nhìn nhận cuộc sống từ góc độ rộng hơn, trưởng thành, bao dung và hiểu sâu hơn về sự khác biệt giữa con người.','Hoàn tất và buông bỏ chu kỳ cũ — buông bỏ đúng lúc giúp giải phóng năng lượng và mở ra những cơ hội có ý nghĩa.','Lan tỏa tri thức và phụng sự — phát huy năng lực giảng dạy, cố vấn hoặc tham gia dự án phục vụ cộng đồng để tạo dựng uy tín bền vững.']},
+    'gd3_chan11':{opp:['Trực giác nhạy bén — kết nối nhiều hơn với trực giác; được trực giác dẫn đường trong quá trình cải thiện bản thân và khám phá những lý tưởng cao đẹp.','Khai mở trí tuệ — đạt được tầm nhận thức cao hơn và chia sẻ tri thức cho người khác một cách dễ dàng.','Truyền cảm hứng — cơ hội nhận được sự công nhận và danh tiếng; nếu điều tiết được cảm xúc và làm chủ sự nhạy cảm, Chặng 11 sẽ thực sự viên mãn.']},
+    // GĐ4
+    'gd4_chan1':{opp:['Trở thành nhà lãnh đạo giàu kinh nghiệm — sự sắc sảo và bản lĩnh được tôi luyện qua thời gian giúp nhận được nhiều sự công nhận và tôn trọng từ mọi người.','Khả năng tiên phong và đổi mới — được tín nhiệm đảm nhiệm vị trí dẫn đầu; sẵn sàng cập nhật và làm quen với những thứ mới mẻ.','Tập trung ưu tiên bản thân — dành sự quan tâm cho hạnh phúc cá nhân, độc lập và tự quyết trong mọi chuyện.']},
+    'gd4_chan2':{opp:['Nuôi dưỡng những mối quan hệ có chiều sâu — dành thời gian cho gia đình, bạn bè và cộng đồng; những kết nối chân thành mang lại cảm giác thuộc về và bình an.','Trở thành người kết nối và cố vấn — kinh nghiệm sống giúp nhìn thấy nhu cầu của từng người và đưa ra lời khuyên tinh tế, không áp đặt.','Tin tưởng trực giác và chăm sóc đời sống tinh thần — thiền, nghệ thuật, thiên nhiên giúp duy trì cân bằng cảm xúc và sức khỏe tinh thần.']},
+    'gd4_chan3':{opp:['Định hình rõ nét thương hiệu cá nhân và chia sẻ, truyền cảm hứng tới mọi người; tự tin chia sẻ kinh nghiệm và sẵn sàng tỏa sáng.','Nhận thức được vai trò, sứ mệnh của bản thân — chia sẻ những giá trị, niềm tin và kinh nghiệm với thế giới.','Học thêm các bộ môn để kết nối với bản ngã bên trong: thiền, yoga, đọc sách, hòa mình với thiên nhiên.']},
+    'gd4_chan4':{opp:['Hoàn thiện những hành trình quan trọng — khép lại các dự án, vai trò đã hoàn thành nhiệm vụ để tập trung vào điều có ý nghĩa hơn.','Trở thành người truyền dẫn kinh nghiệm — bài học đã tích lũy được chuyển hóa thành tri thức để đào tạo, cố vấn hoặc truyền cảm hứng cho thế hệ sau.','Phụng sự với tầm nhìn rộng — tham gia dự án xã hội, giáo dục, thiện nguyện hoặc hoạt động có tác động cộng đồng.']},
+    'gd4_chan5':{opp:['Cơ hội thay đổi và trải nghiệm những điều mới mẻ, giúp tinh thần vui vẻ và tích cực hơn; không chỉ quan tâm sức khỏe thể chất mà còn chú trọng sự phát triển tinh thần và trí tuệ.','Dùng bản lĩnh đã được tôi luyện để kiên định với mục tiêu và sứ mệnh; thích nghi linh hoạt với những thay đổi.']},
+    'gd4_chan6':{opp:['Trao đi yêu thương và bảo vệ các thế hệ sau, tạo môi trường gia đình ấm cúng; hỗ trợ tài chính hoặc trở thành nguồn động viên tinh thần.','Học thêm các bộ môn để kết nối với bản ngã bên trong: thiền, yoga, đọc sách, hòa mình với thiên nhiên để giảm stress.','Thực hành lòng từ bi mỗi ngày; lan tỏa và truyền cảm hứng tích cực về những giá trị nhân văn.']},
+    'gd4_chan7':{opp:['Nhận thức được vai trò, sứ mệnh của bản thân — chia sẻ những giá trị, niềm tin và kinh nghiệm của mình với thế giới.','Kết nối sâu sắc với bản ngã bên trong qua thiền, yoga, đọc sách và hòa mình với thiên nhiên.','Thực hành lòng từ bi mỗi ngày và chia sẻ trí tuệ với người xung quanh.']},
+    'gd4_chan8':{opp:['Củng cố hơn nữa vị thế và năng lực lãnh đạo; duy trì trạng thái chủ động, sáng tạo cùng tư duy cởi mở.','Được tín nhiệm, nhận nhiều sự công nhận và tôn trọng nhờ bản lĩnh và kinh nghiệm được tôi luyện.','Sẵn sàng cập nhật và làm quen với những thứ mới mẻ; kiểm soát sự tự tin ở mức độ vừa đủ để không bị nhìn nhận là độc đoán.']},
+    'gd4_chan9':{opp:['Mở rộng tầm nhìn và cống hiến — vừa giúp xã hội chuyển hóa tốt đẹp vừa thoải mái tận hưởng cuộc sống.','Hoàn tất và buông bỏ chu kỳ cũ — việc biết kết thúc đúng lúc giúp nhẹ nhàng, sáng suốt và không bị giữ lại bởi quá khứ.','Lan tỏa tri thức — chuyển hóa bài học thành tri thức để đào tạo, cố vấn hoặc truyền cảm hứng cho thế hệ sau.']},
+    'gd4_chan11':{opp:['Trực giác nhạy bén — kết nối sâu sắc với nội tâm và được trực giác dẫn đường trong cải thiện bản thân.','Khai mở trí tuệ — đạt tầm nhận thức cao và chia sẻ tri thức cho người khác một cách dễ dàng.','Cơ hội truyền cảm hứng, nhận được sự công nhận và danh tiếng; tiềm năng trong lĩnh vực sáng tạo và nghệ thuật.']},
+  };
+
+  const THACH_DATA={
+    // GĐ1
+    'gd1_thach0':{ch:['Có thể không gặp khó khăn hay trở ngại đáng kể, nhưng vẫn có thể đối mặt với những thách thức tiềm ẩn hoặc rủi ro không lường trước.'],sol:['Tận dụng mọi cơ hội để rèn luyện kỹ năng, xây dựng nền tảng vững chắc và khám phá tiềm năng bản thân tối đa.','Chấp nhận thách thức là cơ hội để vượt qua giới hạn và trở nên mạnh mẽ hơn; dũng cảm đối mặt thay vì chạy trốn.']},
+    'gd1_thach1':{ch:['Dễ dựa dẫm vào người khác, phụ thuộc và không được chủ động quyết định.','Không khẳng định được bản thân và mất đi sự tự tin; thiếu khả năng lãnh đạo bản thân và người khác.'],sol:['Xác định và phát triển điểm mạnh; duy trì suy nghĩ tích cực, tập trung vào thành tựu của bản thân.','Tự quyết định và đảm nhận trách nhiệm; tìm hiểu và xây dựng kỹ năng cá nhân để tự lo cho bản thân.']},
+    'gd1_thach2':{ch:['Dễ bị nhạy cảm — phải đối mặt với sự biến đổi nhanh chóng của cảm xúc, có thể hoài nghi về bản thân và lo lắng về tương lai.','Dễ mất cân bằng — phải điều tiết nhiều khía cạnh, chưa thích nghi nhanh với sự thay đổi nên dần mất cân bằng.','Hỗn loạn trong cảm xúc — thường phải đối mặt với thách thức cảm xúc đi kèm với sự phát triển và trưởng thành.'],sol:['Quản lý tốt cảm xúc để duy trì sự ổn định tâm lý và xây dựng mối quan hệ tốt đẹp.','Quản lý thời gian — tập trung vào những gì thực sự quan trọng và mang ý nghĩa.']},
+    'gd1_thach3':{ch:['Chưa thể hiện được bản thân — muốn thể hiện tài năng nhưng chưa đủ sự nổi bật để được chú ý.','Khả năng giao tiếp còn hạn chế; khó tập trung sâu vì năng lượng cao và thích sự dịch chuyển.'],sol:['Thích nghi và học hỏi từ những sai lầm; học cách lắng nghe để hiểu rõ hơn về ý kiến của người khác.','Học cách diễn đạt suy nghĩa rõ ràng và tự tin; áp dụng kỹ thuật tập trung bằng cách chia công việc thành các phần nhỏ.']},
+    'gd1_thach4':{ch:['Thiếu kỷ luật — dễ buông thả bản thân, cho phép mình phá vỡ quy tắc.','Dễ dàng từ bỏ khi đối diện với những thử thách khó nhằn cần nhiều sự kiên trì.'],sol:['Rèn luyện khả năng tự kỷ luật — tự thiết lập các quy tắc và mục tiêu cho bản thân, sau đó tập trung tuân thủ.','Kiên trì nỗ lực từng ngày, luôn nghĩ tới kết quả cuối cùng để tránh dễ dàng từ bỏ.']},
+    'gd1_thach5':{ch:['Dễ phá bỏ cam kết và lời hứa; cần chú trọng việc đảm bảo cam kết để không bị coi là "nói suông".','Dễ sa đà vào sự mất kiểm soát bản thân trước những thú vui thay vì tập trung cho thứ thực sự quan trọng.'],sol:['Ghi chép tiến trình và đặt ra hình thức thưởng phạt để trân trọng hành trình và tránh phá bỏ cam kết.','Luôn nhắc nhở bản thân về động lực ban đầu; học cách đặt ưu tiên và từ chối những thứ không phù hợp.']},
+    'gd1_thach6':{ch:['Dễ chịu áp lực từ kỳ vọng của gia đình, thầy cô; cảm thấy phải luôn ngoan ngoãn, hoàn hảo và đáp ứng đúng mong muốn của người khác.','Có xu hướng lo lắng quá mức cho người thân, ôm việc hoặc nhận trách nhiệm không phù hợp với độ tuổi.','Khó phân biệt giữa yêu thương và chiều lòng; giữa trách nhiệm lành mạnh và sự hy sinh quá mức.'],sol:['Học cách nhận diện trách nhiệm phù hợp; chấp nhận sự không hoàn hảo vì tình yêu không đòi hỏi phải luôn làm hài lòng tất cả.','Rèn luyện cách bày tỏ nhu cầu và cảm xúc; xây dựng thói quen chăm sóc bản thân để không biến trách nhiệm thành gánh nặng.']},
+    'gd1_thach7':{ch:['Mất niềm tin — hoài nghi về những thứ xung quanh vì không tìm được nguồn gốc của niềm tin.','Không kết nối được với bản thân; khó khăn trong việc học tập và phát triển bản thân do cảm giác mất định hướng.'],sol:['Xác định mục tiêu và hướng đi rõ ràng để không cảm thấy lạc lõng.','Dám thử, dám sai — học hỏi từ kinh nghiệm; chấp nhận phát triển bản thân là quá trình liên tục cùng sự tự yêu thương.']},
+    'gd1_thach8':{ch:['Dễ cảm thấy bị kiểm soát bởi người lớn; từ đó hình thành nhu cầu chứng minh bản thân rất mạnh.','Đặt nặng thành tích, thứ hạng hoặc sự công nhận bên ngoài; khó quản lý mong muốn vật chất và dễ so sánh với người khác.','Dễ phản ứng cực đoan với quyền lực: hoặc quá phục tùng, hoặc chống đối và muốn kiểm soát mọi việc.'],sol:['Xây dựng giá trị bản thân từ năng lực, nỗ lực và phẩm chất thay vì điểm số, tiền bạc hay lời khen.','Học kỹ năng quản lý tài chính cơ bản; rèn luyện tinh thần công bằng, chính trực và chuyển nhu cầu chứng minh thành mục tiêu phát triển.']},
+    'gd1_thach9':{ch:['Dễ nhạy cảm trước nỗi đau và cảm xúc của người khác; có thể bị cuốn vào vấn đề không thuộc về mình.','Khó buông bỏ sự tổn thương hoặc kỳ vọng không còn phù hợp; dễ lý tưởng hóa và thất vọng khi thực tế không như mong đợi.','Dễ cho đi quá nhiều vì thương người nhưng chưa biết giới hạn, dẫn đến kiệt sức.'],sol:['Học cách đồng cảm có ranh giới — không gánh thay cảm xúc hoặc trách nhiệm của người khác.','Thực hành buông bỏ những điều không thể thay đổi; phát triển tư duy thực tế và tham gia hoạt động cộng đồng phù hợp.']},
+    // GĐ2
+    'gd2_thach0':{ch:['Thách thức xảy đến trong thời điểm này đều đến từ lựa chọn của bản thân; không phải mối lo lớn nếu áp dụng kinh nghiệm tích lũy được.'],sol:['Hành xử khôn khéo, cân nhắc kỹ lưỡng trong mọi lựa chọn.','Linh hoạt đương đầu với mọi thách thức: dám làm, dám chịu trách nhiệm, không sợ thất bại.']},
+    'gd2_thach1':{ch:['Thiếu tự tin khi phải tự đưa ra quyết định lớn về nghề nghiệp, tài chính hoặc mối quan hệ.','Dễ phụ thuộc vào ý kiến của gia đình, cấp trên hoặc người bạn đời, từ đó chậm xác lập con đường riêng.','Ở chiều ngược lại có thể trở nên quá cứng rắn, hiếu thắng hoặc muốn chứng minh mình bằng mọi giá.','Khó hợp tác khi cảm thấy quyền tự chủ bị đe dọa.'],sol:['Xác định rõ giá trị, mục tiêu và nguyên tắc cá nhân để có cơ sở đưa ra quyết định độc lập.','Rèn luyện năng lực chịu trách nhiệm; phân biệt tự chủ với cố chấp và phát triển phong cách lãnh đạo trưởng thành.']},
+    'gd2_thach2':{ch:['Mất cân bằng giữa nhu cầu của bản thân với nhu cầu của gia đình, bạn bè hay người khác.','Sợ bị từ chối và dễ bị tổn thương; nỗi sợ có thể ngăn cản việc hoàn thiện bản thân.','Xảy ra nhiều xung đột và mất kết nối trong giao tiếp giữa các mối quan hệ.'],sol:['Phát triển khả năng giao tiếp và lòng thấu cảm; xây dựng chiến lược giải quyết xung đột bằng lắng nghe tích cực.','Tìm kiếm sự hỗ trợ từ những người tin tưởng để vượt qua thách thức và nâng cao góc nhìn.']},
+    'gd2_thach3':{ch:['Gặp khó khăn trong việc thể hiện cá tính; cảm thấy e dè trong việc truyền đạt suy nghĩ và cảm xúc rõ ràng.','Khó khăn trong giao tiếp; dễ đi theo cảm xúc và thiếu sự quyết đoán, dẫn đến dễ xung đột.'],sol:['Dám thể hiện khả năng sáng tạo; hình thành niềm tin cho bản thân để có thể chân thật nhất khi bày tỏ cảm xúc.','Nâng cao kỹ năng giao tiếp hiệu quả; tập nhận biết cảm xúc và dùng lý trí để đánh giá hành động.']},
+    'gd2_thach4':{ch:['Cảm thấy sợ hãi khi thích nghi với sự thay đổi hoặc những điều chưa biết.','Cứng nhắc trong thói quen cũ dẫn đến khó thoát khỏi vùng an toàn; khó khăn trong quản lý trách nhiệm tài chính mới.','Thiếu linh hoạt bởi sự tập trung thái quá vào quy trình chặt chẽ.'],sol:['Học cách mở lòng với cơ hội mới; đầu tư thời gian nghiên cứu về tài chính để hiểu cách đầu tư và tiết kiệm phù hợp.','Rèn luyện sự linh hoạt trong việc ra quyết định, sẵn sàng thay đổi và không sợ thất bại.']},
+    'gd2_thach5':{ch:['Cảm thấy bồn chồn và thiếu kiên nhẫn bởi mong muốn tìm kiếm sự đổi mới liên tục, dẫn đến thiếu tập trung và cam kết lâu dài.','Khó khăn trong việc tìm ra phương hướng rõ ràng vì muốn ôm đồm quá nhiều thứ.','Dễ buông lỏng cảnh giác và khó ổn định bởi liên tục tìm kiếm thay đổi và trải nghiệm mới.'],sol:['Tìm kiếm sự cân bằng giữa mong muốn thay đổi và nhu cầu ổn định; tập trung đặt mục tiêu rõ ràng để xác định phương hướng.','Rèn luyện sự kiên trì và tính kiên nhẫn; đầu tư thời gian và nỗ lực vào phát triển bản thân với sự cân nhắc kỹ lưỡng.']},
+    'gd2_thach6':{ch:['Hy sinh quá nhiều cho người khác và quên mất việc bản thân cũng cần được chăm sóc.','Khó thiết lập ranh giới với nhu cầu của người khác; dễ có xung đột trong các mối quan hệ vì quá quan tâm hoặc bao bọc quá mức.','Bỏ quên sự phát triển bản thân bởi quá tập trung chăm sóc người khác.'],sol:['Ưu tiên chăm sóc bản thân — đảm bảo sức khỏe cá nhân không bị ảnh hưởng thì mới có thể chăm sóc tốt cho người khác.','Học cách nói "Không" khi cần thiết; cân bằng giữa "Cho" và "Nhận", tránh gánh vác trách nhiệm quá mức.']},
+    'gd2_thach7':{ch:['Khó khăn trong tìm kiếm câu trả lời và sự rõ ràng bởi mong muốn tìm kiếm câu trả lời cho vạn vật.','Cảm giác bị cô lập bởi tập trung sâu vào bên trong, dễ toát ra vẻ khó gần khiến người khác khó tiếp xúc.','Nhạy cảm cao khiến việc quản lý cảm xúc trở nên khó khăn hơn.'],sol:['Mở lòng chia sẻ hơn với người xung quanh; tìm kiếm những người bạn đồng hành có thể thấu hiểu chiều sâu của mình.','Thực hành các bài tập chánh niệm hoặc thiền định để quản lý cảm xúc và duy trì sự bình tĩnh nội tâm.']},
+    'gd2_thach8':{ch:['Áp lực thành công vật chất có thể khiến làm việc quá sức, đánh đổi sức khỏe hoặc các mối quan hệ.','Dễ bị cuốn vào cạnh tranh, chức danh, thu nhập hoặc nhu cầu được công nhận; có thể gặp khó khăn trong quản trị tài chính.','Dễ kiểm soát người khác hoặc phản ứng mạnh khi cảm thấy mất quyền lực.'],sol:['Thiết lập mục tiêu tài chính rõ ràng và hệ thống quản trị minh bạch; định nghĩa thành công đa chiều bao gồm sức khỏe, gia đình, sự bình an.','Sử dụng quyền lực với tinh thần phụng sự; duy trì kỷ luật làm việc nhưng đặt giới hạn để tránh kiệt sức.']},
+    'gd2_thach9':{ch:['Khó chấp nhận sự kết thúc của công việc, mối quan hệ đã đầu tư nhiều tâm sức.','Dễ ôm nỗi thất vọng, cảm giác bất công; có xu hướng hy sinh cho người khác và theo đuổi lý tưởng lớn nhưng thiếu ranh giới.','Có thể mất phương hướng khi mục tiêu cũ hoàn thành nhưng chưa xác định được ý nghĩa mới.'],sol:['Đánh giá lại những gì đã hoàn thành, ghi nhận bài học và chủ động đóng lại các cam kết không còn phù hợp.','Tách lòng trắc ẩn khỏi sự cứu hộ — giúp đỡ theo khả năng, có mục tiêu và có giới hạn; chuyển trải nghiệm thành giá trị.']},
+    // GĐ3
+    'gd3_thach0':{ch:['Lựa chọn cuộc sống bứt phá, thay đổi bản thân hay phụ thuộc vào dòng chảy của cuộc sống — hoàn toàn là quyết định của mỗi người.'],sol:['Chấp nhận và biết ơn — chỉ số này thể hiện sự may mắn trong mọi việc.','Tin tưởng vào sức mạnh tiềm tàng của bản thân; cố gắng phát triển thành phiên bản tự tin, độc lập và dũng cảm hơn.']},
+    'gd3_thach1':{ch:['Gặp khó khăn trong việc đứng lên bảo vệ giá trị của bản thân.','Bị phụ thuộc vào ý kiến của mọi người và không tự chủ được trong quyết định.'],sol:['Tin tưởng bản thân — tự tin rằng mình được sinh ra với khả năng có thể giải quyết các vấn đề gặp phải.','Chăm chỉ làm việc và phát triển tư duy độc lập thông qua việc tự quyết, dám làm và dám chịu trách nhiệm.']},
+    'gd3_thach2':{ch:['Dễ hy sinh bản thân quá mức; khó đứng vững trước áp lực và cần được người khác công nhận.','Cảm thấy chạnh lòng khi không có ai đồng hành cùng.'],sol:['Học tập và rèn luyện không ngừng để có quyết định đúng đắn trước các lựa chọn.','Mở lòng với mọi người — tháo bỏ lớp mặt nạ thờ ơ, cởi mở và chủ động hơn trong việc kết nối.']},
+    'gd3_thach3':{ch:['Khó duy trì tập trung và hoàn thành những cam kết dài hạn.','Dễ bị phân tâm bởi những cơ hội mới; thiếu kỷ luật trong việc phát triển tài năng.'],sol:['Thiết lập kỷ luật sáng tạo — dành thời gian có cấu trúc cho việc phát triển tài năng.','Hoàn thiện những dự án và cam kết đã có trước khi bắt đầu điều mới.']},
+    'gd3_thach4':{ch:['Quá bảo thủ và ngại thay đổi trong giai đoạn cần sự linh hoạt.','Quá cứng nhắc trong tư duy; dễ bị stress khi không thể kiểm soát mọi thứ.'],sol:['Phát triển sự linh hoạt trong tư duy và phương pháp làm việc.','Học cách buông bỏ nhu cầu kiểm soát mọi chi tiết.']},
+    'gd3_thach5':{ch:['Gặp khó khăn trong việc ổn định và tập trung vào một hướng; dễ bị kéo đi bởi nhiều cơ hội.','Cần thận trọng về pháp lý — không nên liều lĩnh trong các quyết định quan trọng.'],sol:['Rèn luyện khả năng tập trung và cam kết với các mục tiêu dài hạn.','Cân bằng giữa nhu cầu thay đổi và sự ổn định cần thiết.']},
+    'gd3_thach6':{ch:['Khó cân bằng giữa trách nhiệm gia đình và nhu cầu phát triển cá nhân.','Dễ hy sinh quá mức cho gia đình mà bỏ quên bản thân.','Có thể gặp xung đột giữa trách nhiệm và mong muốn tự do cá nhân.'],sol:['Thiết lập ranh giới rõ ràng giữa trách nhiệm gia đình và phát triển cá nhân.','Học cách yêu thương có trí tuệ — cho đi mà không mất đi bản thân.']},
+    'gd3_thach7':{ch:['Dễ cô lập, khó gần — gặp khó khăn trong làm việc nhóm.','Tiêu chuẩn cao, khó tính trong các mối quan hệ chuyên nghiệp; hay nhìn vào mặt trái vấn đề.'],sol:['Học cách chia sẻ với mọi người và cần 1 người bạn tri kỷ đồng hành.','Tìm cho mình môi trường tích cực; luôn nâng cao tri thức và tầm hiểu biết của mình.']},
+    'gd3_thach8':{ch:['Dễ đồng nhất giá trị bản thân với chức vụ, tài sản hoặc mức độ ảnh hưởng.','Có thể quá tập trung vào kiểm soát kết quả, con người và nguồn lực, gây căng thẳng trong quan hệ.','Áp lực bảo vệ thành quả hoặc trách nhiệm tài chính có thể làm tăng lo âu; khó chấp nhận ủy quyền hoặc thay đổi vai trò.'],sol:['Xây dựng hệ thống quản trị tài chính và tài sản dài hạn, ưu tiên minh bạch, an toàn và tính kế thừa.','Học cách ủy quyền và phát triển người kế nhiệm; tách bản sắc cá nhân khỏi thành tựu vật chất.']},
+    'gd3_thach9':{ch:['Nuối tiếc quá khứ, khó rời khỏi một vai trò hoặc mối quan hệ từng tạo nên bản sắc.','Dễ mang theo sự thất vọng, oán trách hoặc cảm giác chưa được ghi nhận xứng đáng.','Lý tưởng lớn nhưng thiếu ưu tiên, khiến nguồn lực bị phân tán và kết quả không bền vững.'],sol:['Thực hành tha thứ và hoàn tất — ghi nhận điều đã đạt được, rút bài học và cho phép bản thân bước sang chương mới.','Thiết lập ranh giới rõ ràng về thời gian, tiền bạc và cảm xúc khi hỗ trợ người khác; dùng kinh nghiệm để cố vấn và xây dựng di sản tri thức.']},
+    // GĐ4
+    'gd4_thach0':{ch:['Chỉ số này đại diện cho những thử thách đến từ chính lựa chọn của bản thân.'],sol:['Chấp nhận và biết ơn — biết ơn vũ trụ vì điều đó.','Tin tưởng vào sức mạnh tiềm tàng của bản thân; nuôi dưỡng lòng tự trọng và tiếp tục phát triển.']},
+    'gd4_thach1':{ch:['Gặp khó khăn trong việc đứng lên bảo vệ giá trị của bản thân.','Bị phụ thuộc vào ý kiến của mọi người và không tự chủ trong quyết định.'],sol:['Tin tưởng bản thân — tự tin rằng bản thân được sinh ra với khả năng giải quyết các vấn đề.']},
+    'gd4_thach2':{ch:['Dễ hy sinh bản thân quá mức; khó thiết lập ranh giới lành mạnh.','Cảm giác cô đơn hoặc thiếu sự đồng hành.'],sol:['Nuôi dưỡng các mối quan hệ chân thực và thiết lập ranh giới rõ ràng.','Chăm sóc bản thân trước khi chăm sóc người khác.']},
+    'gd4_thach3':{ch:['Khó duy trì năng lượng sáng tạo và niềm vui sống theo thời gian.','Dễ bị phân tâm bởi những thú vui nhất thời.'],sol:['Tìm kiếm những hoạt động mang lại niềm vui thực sự và có ý nghĩa.','Chia sẻ trí tuệ và trải nghiệm với thế hệ sau.']},
+    'gd4_thach4':{ch:['Quá cứng nhắc và khó thích nghi với những thay đổi trong giai đoạn sau của cuộc đời.','Có thể quá tập trung vào trách nhiệm mà quên đi việc tận hưởng cuộc sống.'],sol:['Phát triển sự linh hoạt và khả năng buông bỏ.','Học cách tận hưởng cuộc sống trong hiện tại.']},
+    'gd4_thach5':{ch:['Khó duy trì sự ổn định và an toàn trong giai đoạn cần sự bình yên.','Dễ bị cuốn vào những thay đổi không cần thiết.'],sol:['Rèn luyện khả năng tìm kiếm sự bình an trong sự ổn định.','Tập trung vào những điều thực sự quan trọng và có ý nghĩa.']},
+    'gd4_thach6':{ch:['Dễ lo lắng quá mức cho con cháu hoặc cộng đồng; có xu hướng gánh thay trách nhiệm của người khác dẫn đến kiệt sức.','Có xu hướng lý tưởng hóa sự cống hiến và bỏ quên nhu cầu sức khỏe, nghỉ ngơi.'],sol:['Trao truyền thay vì gánh thay — chia sẻ kinh nghiệm và tôn trọng quyền lựa chọn của thế hệ sau.','Chọn hình thức phụng sự phù hợp với sức khỏe và nguồn lực, ưu tiên sự bền vững và bình an.']},
+    'gd4_thach7':{ch:['Khó chia sẻ bản thân và kết nối với người khác trong giai đoạn cuối đời.','Có thể rơi vào cô lập tinh thần.'],sol:['Mở lòng chia sẻ kinh nghiệm và trí tuệ với người khác.','Tìm kiếm cộng đồng tinh thần có cùng giá trị.']},
+    'gd4_thach8':{ch:['Lo lắng thái quá về vấn đề tài chính; dễ ám ảnh bởi nhu cầu vật chất và quyền lực.'],sol:['Vượt qua tham vọng vật chất — quan tâm đến khía cạnh tinh thần nhiều hơn; dành thời gian cho những người mình yêu thương.','Kiểm soát cái tôi, tránh lạm dụng quyền lực để áp đặt người khác.']},
+    'gd4_thach9':{ch:['Khó buông bỏ quá khứ, tiếc nuối những cơ hội, vai trò hoặc mối quan hệ đã đi qua.','Có thể cảm thấy cô đơn, thất vọng khi các giá trị cũ không còn phù hợp.','Có xu hướng lý tưởng hóa sự cống hiến và bỏ quên nhu cầu sức khỏe, nghỉ ngơi.'],sol:['Thực hành chấp nhận và biết ơn — nhìn lại những điều đã hoàn thành, trân trọng bài học.','Tha thứ cho bản thân và người khác để giải phóng cảm xúc tồn đọng; trao truyền thay vì gánh thay.']},
+  };
+
+  const chanKey='gd'+(gdIdx+1)+'_chan'+chanVal;
+  const thachKey='gd'+(gdIdx+1)+'_thach'+thachVal;
+  const chanD=CHAN_DATA[chanKey];
+  const thachD=THACH_DATA[thachKey];
+
+  // ── Render danh sách ──
+  function liItems(arr,dotColor){
+    return(arr||[]).map(function(t){
+      return'<li style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(201,169,110,.10);font-size:13px;color:#3D2B1F;line-height:1.65;">'
+        +'<span style="color:'+dotColor+';flex-shrink:0;margin-top:2px;">✦</span>'
+        +'<span>'+t+'</span></li>';
+    }).join('');
+  }
+  function liSol(arr){
+    return(arr||[]).map(function(t){
+      return'<li style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(201,169,110,.10);font-size:13px;color:#3D2B1F;line-height:1.65;">'
+        +'<span style="color:#4F6D5A;flex-shrink:0;margin-top:2px;">→</span>'
+        +'<span>'+t+'</span></li>';
+    }).join('');
+  }
+
+  const [fromAge,toAge]=PEAK_RANGES[gdIdx].replace('Từ ','').replace(' tuổi đến ',' ').replace(' tuổi','').split(' ');
+
+  var html='';
+
+  // 1. Ý nghĩa giai đoạn
+  html+='<div style="background:#F0F7F4;border-radius:12px;padding:14px 16px;margin-bottom:14px;">'
+    +'<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4F6D5A;margin-bottom:8px;">📖 Ý NGHĨA GIAI ĐOẠN</div>'
+    +'<p style="font-size:13px;color:#2A3850;line-height:1.75;margin:0 0 10px;">'
+      +'<strong>Giai đoạn '+(gdIdx+1)+' của bạn bắt đầu từ '+fromAge+' tuổi đến '+toAge+' tuổi.</strong>'
+    +'</p>'
+    +'<p style="font-size:13px;color:#3D2B1F;line-height:1.75;margin:0;">'+GD_MEANING[gdIdx]+'</p>'
+    +'</div>';
+
+  // 2. Chặng — Cơ hội
+  if(chanD){
+    html+='<div style="background:#F0F7F4;border-radius:12px;padding:14px 16px;margin-bottom:14px;border-left:3px solid #4F6D5A;">'
+      +'<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4F6D5A;margin-bottom:8px;">🌟 CHẶNG '+chanVal+' — CƠ HỘI</div>'
+      +'<p style="font-size:13px;color:#2A3850;line-height:1.7;margin:0 0 10px;">'
+        +'Ở giai đoạn này bạn mang năng lượng chỉ số <strong>Chặng '+chanVal+'</strong>, tương ứng với chỉ số <strong>Thách thức '+thachVal+'</strong>.'
+      +'</p>'
+      +'<p style="font-size:13px;color:#2A3850;line-height:1.7;margin:0 0 10px;">'
+        +'<strong>Chặng '+chanVal+'</strong> mang đến cho bạn những cơ hội sau:'
+      +'</p>'
+      +'<ul style="list-style:none;">'+liItems(chanD.opp,'#4F6D5A')+'</ul>'
+      +'</div>';
+  }
+
+  // 3. Thách thức
+  if(thachD){
+    html+='<div style="background:#FDF4F4;border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid #C0748A;">'
+      +'<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C0748A;margin-bottom:8px;">⚡ THÁCH THỨC '+thachVal+'</div>'
+      +'<p style="font-size:13px;color:#2A3850;line-height:1.7;margin:0 0 10px;">'
+        +'Chặng này bạn mang thách thức <strong>'+thachVal+'</strong>. Bài học và thử thách mà bạn có thể cần phải vượt qua để chạm tới cơ hội trong Chặng này là:'
+      +'</p>'
+      +'<ul style="list-style:none;">'+liItems(thachD.ch,'#C0748A')+'</ul>'
+      +(thachD.sol&&thachD.sol.length?
+        '<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(192,116,138,.15);">'
+          +'<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4F6D5A;margin-bottom:6px;">💡 Gợi ý vượt qua</div>'
+          +'<ul style="list-style:none;">'+liSol(thachD.sol)+'</ul>'
+        +'</div>' :'')
+      +'</div>';
+  }
+
+  const sheet=document.createElement('div');
+  sheet.id='pyr-detail-sheet';
+  sheet.style.cssText='position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(29,41,81,.5);backdrop-filter:blur(4px);';
+  sheet.innerHTML=
+    '<div style="background:#FAF6F0;border-radius:20px 20px 0 0;padding:0 0 32px;max-height:88vh;overflow-y:auto;box-shadow:0 -4px 32px rgba(29,41,81,.2);">'
+      +'<div style="position:sticky;top:0;background:#FAF6F0;padding:18px 18px 14px;border-bottom:1px solid rgba(201,169,110,.2);display:flex;align-items:center;gap:12px;z-index:1;">'
+        +'<div style="width:40px;height:40px;border-radius:50%;background:'+col+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
+          +'<span style="font-family:\'DM Sans\',sans-serif;font-size:17px;font-weight:700;color:'+(gdIdx===3?'#C9A96E':'white')+';font-variant-numeric:tabular-nums lining-nums;">'+PEAK_VALS[gdIdx]+'</span>'
+        +'</div>'
+        +'<div style="min-width:0;flex:1;">'
+          +'<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:'+col+';margin-bottom:2px;">Giai đoạn '+(gdIdx+1)+'</div>'
+          +'<div style="font-size:13px;font-weight:600;color:#1D2951;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+PEAK_RANGES[gdIdx]+'</div>'
+        +'</div>'
+        +'<button onclick="document.getElementById(\'pyr-detail-sheet\').remove()" style="margin-left:auto;width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(201,169,110,.4);background:transparent;font-size:15px;color:#8B6F5E;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✕</button>'
+      +'</div>'
+      +'<div style="padding:16px 16px 0;">'+html+'</div>'
+    +'</div>';
+  sheet.addEventListener('click',function(e){if(e.target===sheet)sheet.remove();});
+  document.body.appendChild(sheet);
+  }catch(e){console.error('openPeakDetail error:',e.message,e.stack);}
+}
 function goToInput(){showScreen('s-input')}
 
 function goToPyramid(){
@@ -1997,26 +2199,140 @@ function goToPyramid(){
 
   el('pyr-svg-wrap').innerHTML=svg;
 
-  // ── Cards 4 đỉnh ──
-  const PEAK_LABELS=['Đỉnh 1','Đỉnh 2','Đỉnh 3','Đỉnh 4'];
-  const PEAK_SUBS=[`${MM_raw < 10 ? '0'+MM_raw : MM_raw}/${DD_raw < 10 ? '0'+DD_raw : DD_raw} → MM + DD`,
-                   `${DD_raw < 10 ? '0'+DD_raw : DD_raw}/${YYYY_raw} → DD + YYYY`,
-                   `Đỉnh 1 + Đỉnh 2`,
-                   `${MM_raw < 10 ? '0'+MM_raw : MM_raw}/${YYYY_raw} → MM + YYYY`];
+  // ── Cards 4 giai đoạn ──
   const PEAK_COLORS=['#1D2951','#1D2951','#4F6D5A','#B8905A'];
   const PEAK_VALS=[p1,p2,p3,p4];
-  const PEAK_AGES=[age1,age2,age3,age4];
+
+  // Khoảng tuổi mỗi giai đoạn
+  const PEAK_RANGES=[
+    `Từ 0 tuổi đến ${age1} tuổi`,
+    `Từ ${age1+1} tuổi đến ${age2} tuổi`,
+    `Từ ${age2+1} tuổi đến ${age3} tuổi`,
+    `Từ ${age3+1} tuổi đến ${age4} tuổi`,
+  ];
+  const PEAK_YEARS=[yr1,yr2,yr3,yr4];
+
+  // Chỉ số Thách thức: GĐ1=|MM-DD|, GĐ2=|DD-YY|, GĐ3=|thach1-thach2|, GĐ4=|MM-YY|
+  const t1=Math.abs(MM-DD), t2=Math.abs(DD-YY), t3=Math.abs(t1-t2), t4=Math.abs(MM-YY);
+  const thachVals=[redFull(t1)||0,redFull(t2)||0,redFull(t3)||0,redFull(t4)||0];
+
+  // ── Data Chi tiết Giai đoạn (Chặng & Thách thức) ──
+  const PEAK_DATA={
+    // KEY: "gd{1-4}_chan{số}" & "gd{1-4}_thach{số}"
+    // GIAI ĐOẠN 1 — Chặng
+    gd1_chan1:{title:'Chặng 1',type:'opportunity',content:['Rèn luyện sự độc lập — học cách giải quyết vấn đề và đối mặt khó khăn một cách tự lập, được tiếp thêm lòng can đảm và tự tin để làm chủ cuộc sống.','Phát triển khả năng lãnh đạo — có nhiều cơ hội đặt những viên gạch đầu tiên trên hành trình trở thành người lãnh đạo; có thể khởi xướng dự án hoặc thành lập công ty/doanh nghiệp riêng.','Tiên phong và tạo ra giá trị mới — dám nghĩ khác biệt, đứng lên hành động, dẫn đầu để tạo ra xu hướng hoặc thành tựu mới.']},
+    gd1_chan2:{title:'Chặng 2',type:'opportunity',content:['Xây dựng những mối quan hệ chất lượng — mở lòng và tạo dựng những mối quan hệ bạn bè đáng quý, mở rộng mạng lưới quan hệ xã hội.','Phát huy trực giác — nhạy cảm hơn với môi trường và cảm xúc của mọi người xung quanh.','Cân bằng cuộc sống và công việc — dành thời gian thư giãn, giải tỏa căng thẳng để tăng cường sức khỏe tinh thần.']},
+    gd1_chan3:{title:'Chặng 3',type:'opportunity',content:['Thể hiện và phát triển tài năng sáng tạo — bày tỏ cảm xúc và quan điểm qua nghệ thuật, âm nhạc, viết lách.','Xây dựng kỹ năng giao tiếp xã hội — học cách kết nối với mọi người, biểu đạt ý tưởng và xây dựng các mối quan hệ chất lượng.','Đặt nền tảng cho sự phát triển sáng tạo — khám phá đam mê và hiểu rõ điểm mạnh của bản thân.']},
+    gd1_chan4:{title:'Chặng 4',type:'opportunity',content:['Xây dựng nền tảng vững chắc — học cách làm việc chăm chỉ, phát triển kỹ năng và tích lũy kiến thức.','Rèn luyện kỷ luật — tập trung và kiên trì theo đuổi mục tiêu.','Phát triển tư duy thực tế và có trách nhiệm — hiểu giá trị của sự nỗ lực và sự bền bỉ.']},
+    gd1_chan5:{title:'Chặng 5',type:'opportunity',content:['Trải nghiệm và khám phá — thử nghiệm nhiều lĩnh vực khác nhau để hiểu rõ đam mê và khả năng của bản thân.','Phát triển khả năng thích nghi — học cách đối mặt với sự thay đổi và phát triển trong môi trường liên tục biến đổi.','Mở rộng mạng lưới quan hệ — gặp gỡ nhiều người, thu thập những góc nhìn đa dạng.']},
+    gd1_chan6:{title:'Chặng 6',type:'opportunity',content:['Phát triển sự đồng cảm và trách nhiệm — học cách quan tâm, chăm sóc người khác và cộng đồng.','Xây dựng ý thức gia đình — trân trọng mối quan hệ gia đình và tìm kiếm sự hỗ trợ.','Phát triển khiếu thẩm mỹ — tìm hiểu nghệ thuật, âm nhạc, thiết kế.']},
+    gd1_chan7:{title:'Chặng 7',type:'opportunity',content:['Phát triển trí tuệ và tư duy phân tích — học hỏi và nghiên cứu để hiểu sâu về các chủ đề quan tâm.','Khám phá thế giới nội tâm — tìm hiểu bản thân qua thiền định, viết lách, nghệ thuật.','Rèn luyện kỹ năng quan sát — chú ý đến chi tiết, phân tích và suy luận.']},
+    gd1_chan8:{title:'Chặng 8',type:'opportunity',content:['Học cách quản lý nguồn lực — thực hành lập kế hoạch tài chính và phân bổ thời gian.','Phát triển tư duy chiến lược — đặt mục tiêu dài hạn và hoạch định các bước để đạt được.','Xây dựng sức mạnh ý chí — học cách vượt qua khó khăn và kiên trì theo đuổi mục tiêu.']},
+    gd1_chan9:{title:'Chặng 9',type:'opportunity',content:['Rèn luyện lòng trắc ẩn — vượt khỏi giới hạn bản thân, giúp đỡ mọi người vượt qua nỗi đau về thể xác, tinh thần.','Tư tưởng phóng khoáng — tư duy mở rộng và linh hoạt, nhìn nhận thế giới từ nhiều góc độ và chấp nhận sự đa dạng.','Thủ lĩnh tinh thần — trở thành nguồn động lực lớn lao cho đội nhóm, cùng nhau vượt qua khó khăn.']},
+    // GIAI ĐOẠN 1 — Thách thức
+    gd1_thach0:{title:'Thách thức 0',type:'challenge',content:['Không gặp khó khăn đáng kể nhưng vẫn có thể đối mặt với những thách thức tiềm ẩn hoặc rủi ro không lường trước.','Tận dụng mọi cơ hội để rèn luyện kỹ năng, xây dựng nền tảng và khám phá tiềm năng bản thân.','Chấp nhận thách thức là cơ hội để vượt qua giới hạn và trở nên mạnh mẽ hơn.'],solution:['Không ngừng mở rộng tầm mắt và tìm kiếm kiến thức từ những nguồn học hỏi khác nhau.','Đối diện với khó khăn, không chạy trốn hay từ bỏ — xây dựng cuộc đời đáng tự hào.']},
+    gd1_thach1:{title:'Thách thức 1',type:'challenge',content:['Dễ dựa dẫm vào người khác, phụ thuộc vào người khác và không được chủ động quyết định.','Không khẳng định được bản thân và mất đi sự tự tin.','Thiếu khả năng lãnh đạo bản thân và người khác.'],solution:['Xác định và phát triển điểm mạnh — đó là cơ hội để đạt được thành tựu lớn trong công việc và cuộc sống.','Duy trì suy nghĩ tích cực, tập trung vào điểm mạnh và thành tựu của bản thân thay vì điểm yếu.']},
+    gd1_thach2:{title:'Thách thức 2',type:'challenge',content:['Dễ bị ảnh hưởng bởi cảm xúc của người khác và mất đi sự tập trung vào mục tiêu của mình.','Thiếu sự tự tin trong giao tiếp và biểu đạt ý kiến.','Quá nhạy cảm trước lời nhận xét của người khác.'],solution:['Chú trọng phát triển sự tự tin và bản lĩnh cá nhân để có thể tự đứng vững trước áp lực.','Học cách phân biệt cảm xúc của mình và người khác.']},
+    gd1_thach3:{title:'Thách thức 3',type:'challenge',content:['Dễ bị phân tâm và thiếu tập trung vào mục tiêu chính.','Khó kiểm soát cảm xúc và lời nói, đôi khi gây hiểu lầm.','Thiếu kỷ luật và tính kiên nhẫn.'],solution:['Phát triển khả năng tập trung và kỷ luật bản thân.','Học cách biểu đạt cảm xúc một cách xây dựng và tích cực.']},
+    gd1_thach4:{title:'Thách thức 4',type:'challenge',content:['Thiếu tổ chức và kỷ luật, khó hoàn thành công việc đúng hạn.','Thiếu kiên nhẫn và bỏ cuộc trước khi đạt được mục tiêu.','Khó chịu trách nhiệm về hành động của mình.'],solution:['Phát triển kỹ năng quản lý thời gian và tổ chức công việc.','Học cách kiên nhẫn và bền bỉ theo đuổi mục tiêu.']},
+    gd1_thach5:{title:'Thách thức 5',type:'challenge',content:['Thiếu kỷ luật và không thể duy trì cam kết.','Dễ bị cuốn vào những trải nghiệm phù phiếm, thiếu định hướng rõ ràng.','Khó kiểm soát ham muốn và sự bốc đồng.'],solution:['Rèn luyện kỷ luật cá nhân và khả năng hoàn thành cam kết.','Thiết lập giới hạn lành mạnh cho bản thân.']},
+    gd1_thach6:{title:'Thách thức 6',type:'challenge',content:['Dễ ôm đồm trách nhiệm của người khác và bỏ quên nhu cầu bản thân.','Khó thiết lập ranh giới lành mạnh trong các mối quan hệ.','Dễ tự phán xét bản thân quá mức.'],solution:['Học cách chăm sóc bản thân trước khi chăm sóc người khác.','Phát triển khả năng thiết lập ranh giới lành mạnh.']},
+    gd1_thach7:{title:'Thách thức 7',type:'challenge',content:['Dễ cô lập bản thân và thiếu kết nối với người khác.','Khó tin tưởng người khác và thường nghi ngờ ý định của họ.','Dễ chìm đắm trong thế giới nội tâm và bỏ qua thực tế.'],solution:['Mở lòng với mọi người — tháo bỏ lớp mặt nạ thờ ơ, cởi mở và chủ động hơn trong kết nối.','Học tập và rèn luyện không ngừng để có quyết định đúng đắn.']},
+    gd1_thach8:{title:'Thách thức 8',type:'challenge',content:['Khó quản lý mong muốn vật chất; dễ so sánh hoàn cảnh mình với người khác.','Dễ phản ứng cực đoan với quyền lực: hoặc quá phục tùng, hoặc chống đối.'],solution:['Xây dựng giá trị bản thân từ năng lực, nỗ lực và phẩm chất thay vì tiền bạc hay lời khen.','Học kỹ năng quản lý tài chính cơ bản, rèn luyện tinh thần công bằng và chính trực.']},
+    gd1_thach9:{title:'Thách thức 9',type:'challenge',content:['Dễ nhạy cảm trước nỗi đau và cảm xúc của người khác; có thể bị cuốn vào vấn đề không thuộc về mình.','Khó buông bỏ sự tổn thương hoặc kỳ vọng không còn phù hợp.','Dễ cho đi quá nhiều, có thể cảm thấy kiệt sức hoặc không được trân trọng.'],solution:['Học cách đồng cảm có ranh giới — không gánh thay cảm xúc của người khác.','Thực hành buông bỏ những điều không thể thay đổi, phát triển tư duy thực tế.']},
+    // GIAI ĐOẠN 2 — Chặng
+    gd2_chan1:{title:'Chặng 1',type:'opportunity',content:['Phát huy sức mạnh và tiềm năng — đã có đủ sức khỏe, trí lực và kinh nghiệm để thực hiện những mục tiêu lớn.','Khẳng định tính tự chủ và độc lập — tự lập về kinh tế, tài chính và tinh thần, không phụ thuộc vào người khác.','Khởi nghiệp và thực hiện ước mơ làm chủ — năng lượng giai đoạn này rất thích hợp.']},
+    gd2_chan2:{title:'Chặng 2',type:'opportunity',content:['Phát triển sự đồng cảm sâu sắc — cơ hội mở rộng khả năng lắng nghe và thấu hiểu người khác.','Xây dựng các mối quan hệ chất lượng — tạo ra mạng lưới hỗ trợ vững chắc.','Cân bằng cuộc sống — học cách làm việc hiệu quả và giữ sự hài hòa trong cuộc sống.']},
+    gd2_chan3:{title:'Chặng 3',type:'opportunity',content:['Phát triển tài năng và phong cách cá nhân — cơ hội thể hiện bản thân.','Xây dựng thương hiệu cá nhân — gây ấn tượng với mọi người qua tài năng và cách biểu đạt.','Cơ hội phát triển sự nghiệp — phát triển kỹ năng chuyên môn và lãnh đạo.']},
+    gd2_chan4:{title:'Chặng 4',type:'opportunity',content:['Xây dựng nền tảng vững chắc — đặt nền móng cho tương lai bằng kỷ luật và bền bỉ.','Phát triển kỹ năng chuyên môn — trở thành chuyên gia trong lĩnh vực của mình.','Đạt được thành công thực sự — thông qua sự chăm chỉ và kiên nhẫn.']},
+    gd2_chan5:{title:'Chặng 5',type:'opportunity',content:['Cơ hội thay đổi, trải nghiệm những thứ mới mẻ, giúp tinh thần vui vẻ và tích cực hơn.','Phát huy tiềm lực sáng tạo mạnh mẽ — đổi mới để thay đổi tầng nhận thức và chinh phục mục tiêu mới.','Thành công luôn đi kèm thách thức — thích hợp để thử thách và tự nhìn nhận bản thân.']},
+    gd2_chan6:{title:'Chặng 6',type:'opportunity',content:['Trao đi yêu thương — có nhiều cơ hội làm từ thiện, giúp đỡ những hoàn cảnh khó khăn, lan tỏa giá trị nhân văn.','Tập trung hướng về gia đình — gia đình là hậu phương, là khía cạnh cốt lõi.','Nâng cao tinh thần trách nhiệm — thay đổi nhận thức về trách nhiệm trong mọi khía cạnh.']},
+    gd2_chan7:{title:'Chặng 7',type:'opportunity',content:['Phát triển bản thân liên tục — học, nghiên cứu liên tục để trở thành người có tầm nhìn rộng.','Tập trung vào nghiên cứu và phát triển một khía cạnh chuyên môn sâu.','Kết nối với bên trong — khám phá khía cạnh liên quan tới nội tâm và tâm linh.']},
+    gd2_chan8:{title:'Chặng 8',type:'opportunity',content:['Cơ hội xây dựng sự giàu có và uy tín — phát triển sự nghiệp, tạo ra thu nhập ổn định.','Phát triển kỹ năng lãnh đạo và quản lý — quản trị đội nhóm hoặc dự án lớn.','Cơ hội phát triển sự nghiệp — thăng tiến lên vị trí có quyền uy.']},
+    gd2_chan9:{title:'Chặng 9',type:'opportunity',content:['Mở rộng tầm nhìn và sống với lý tưởng lớn — nhìn nhận cuộc sống từ góc độ rộng hơn.','Hoàn tất và buông bỏ chu kỳ cũ — khép lại công việc không còn phù hợp.','Lan tỏa tri thức và phụng sự — phát huy năng lực giảng dạy, cố vấn, truyền cảm hứng.']},
+    // GIAI ĐOẠN 2 — Thách thức
+    gd2_thach0:{title:'Thách thức 0',type:'challenge',content:['Đây là thời điểm có thể áp dụng kinh nghiệm đã tích lũy để tìm ra cách xử lý thông minh hơn.','Thách thức xảy đến đều đến từ lựa chọn của bản thân.'],solution:['Hành xử khôn khéo, cân nhắc kỹ lưỡng.','Linh hoạt đương đầu với mọi thách thức: dám làm, dám chịu trách nhiệm, không sợ thất bại.']},
+    gd2_thach1:{title:'Thách thức 1',type:'challenge',content:['Thiếu tự tin khi phải tự đưa ra quyết định lớn về nghề nghiệp, tài chính hoặc mối quan hệ.','Dễ phụ thuộc vào ý kiến của gia đình, cấp trên, từ đó chậm xác lập con đường riêng.','Ở chiều ngược lại, có thể trở nên quá cứng rắn hoặc muốn chứng minh mình bằng mọi giá.'],solution:['Xác định rõ giá trị, mục tiêu và nguyên tắc cá nhân để có cơ sở đưa ra quyết định độc lập.','Rèn luyện năng lực chịu trách nhiệm: bắt đầu từ các quyết định nhỏ, theo dõi kết quả và điều chỉnh.']},
+    gd2_thach2:{title:'Thách thức 2',type:'challenge',content:['Dễ hy sinh bản thân quá mức trong mối quan hệ và công việc.','Khó nói không khi người khác cần giúp đỡ, dù điều đó gây hại cho bản thân.','Thiếu quyết đoán, dễ bị lung lay bởi ý kiến người khác.'],solution:['Phát triển ranh giới lành mạnh — học cách nói không khi cần.','Rèn luyện khả năng quyết đoán và tự tin trong quyết định của mình.']},
+    gd2_thach3:{title:'Thách thức 3',type:'challenge',content:['Khó duy trì tập trung và kỷ luật trong công việc.','Dễ bị phân tâm bởi những cơ hội mới và không hoàn thành những gì đã bắt đầu.','Thiếu kiên nhẫn và bỏ qua các chi tiết quan trọng.'],solution:['Phát triển kỹ năng quản lý thời gian và ưu tiên công việc.','Học cách hoàn thành những gì đã cam kết trước khi bắt đầu điều mới.']},
+    gd2_thach4:{title:'Thách thức 4',type:'challenge',content:['Dễ bị cuốn vào routine và quên mất tầm nhìn lớn hơn.','Quá cứng nhắc trong quy trình làm việc, khó thích nghi với thay đổi.','Có thể thiếu sự linh hoạt khi đối mặt với tình huống bất ngờ.'],solution:['Học cách cân bằng giữa kỷ luật và sự linh hoạt.','Duy trì tầm nhìn dài hạn trong khi chú ý đến chi tiết ngắn hạn.']},
+    gd2_thach5:{title:'Thách thức 5',type:'challenge',content:['Khó duy trì cam kết và hoàn thành trách nhiệm dài hạn.','Dễ bị cám dỗ bởi những thay đổi và cơ hội mới, quên đi mục tiêu ban đầu.','Có thể gặp rắc rối về pháp lý — cần thận trọng.'],solution:['Rèn luyện kỷ luật và cam kết với mục tiêu đã chọn.','Cân bằng giữa nhu cầu thay đổi và sự ổn định cần thiết.']},
+    gd2_thach6:{title:'Thách thức 6',type:'challenge',content:['Dễ ôm đồm trách nhiệm gia đình và công việc đến mức kiệt sức.','Khó thiết lập ranh giới giữa cuộc sống cá nhân và chuyên nghiệp.','Có xu hướng cầu toàn và đặt kỳ vọng cao cho bản thân và người khác.'],solution:['Học cách ủy quyền và chia sẻ trách nhiệm.','Thiết lập ranh giới lành mạnh giữa công việc và cuộc sống cá nhân.']},
+    gd2_thach7:{title:'Thách thức 7',type:'challenge',content:['Khó chia sẻ suy nghĩ và cảm xúc với người khác; có thể cảm thấy cô đơn.','Dễ nghi ngờ và khó tin tưởng người khác trong công việc.','Có thể quá phân tích mà thiếu hành động.'],solution:['Mở lòng kết nối với người khác và chia sẻ bản thân nhiều hơn.','Cân bằng giữa tư duy phân tích và hành động thực tế.']},
+    gd2_thach8:{title:'Thách thức 8',type:'challenge',content:['Áp lực thành công vật chất có thể khiến làm việc quá sức, đánh đổi sức khỏe hoặc mối quan hệ.','Dễ bị cuốn vào cạnh tranh, chức danh, thu nhập hoặc nhu cầu được công nhận.','Có thể gặp khó khăn trong quản trị tiền bạc hoặc trách nhiệm tài chính.'],solution:['Thiết lập mục tiêu tài chính rõ ràng và hệ thống quản trị minh bạch.','Định nghĩa thành công đa chiều, bao gồm sức khỏe, gia đình, sự bình an.']},
+    gd2_thach9:{title:'Thách thức 9',type:'challenge',content:['Khó chấp nhận sự kết thúc của một công việc, mối quan hệ đã đầu tư nhiều tâm sức.','Dễ ôm nỗi thất vọng, cảm giác bất công hoặc tổn thương quá lâu.','Có xu hướng hy sinh cho người khác, theo đuổi lý tưởng nhưng thiếu ranh giới.'],solution:['Đánh giá lại những gì đã hoàn thành, ghi nhận bài học và chủ động đóng lại các cam kết không còn phù hợp.','Tách lòng trắc ẩn khỏi sự cứu hộ: giúp đỡ theo khả năng, có mục tiêu và có giới hạn.']},
+    // GIAI ĐOẠN 3 — Chặng
+    gd3_chan1:{title:'Chặng 1',type:'opportunity',content:['Dám mơ lớn — với sự độc lập và lòng can đảm, có đủ niềm tin và năng lực để tự chọn một con đường riêng.','Xây dựng tầm nhìn — phát huy tiềm năng trở thành nhà lãnh đạo với khả năng nhìn xa trông rộng và tư duy tiên phong.','Không bị ảnh hưởng bởi quan điểm của người khác trong hành trình cá nhân.']},
+    gd3_chan2:{title:'Chặng 2',type:'opportunity',content:['Chiều sâu trong các mối quan hệ — cơ hội xây dựng những kết nối ý nghĩa và bền vững.','Phát triển vai trò cố vấn và mentor — chia sẻ kinh nghiệm và hướng dẫn người khác.','Học cách cân bằng giữa cuộc sống cá nhân và sự nghiệp.']},
+    gd3_chan3:{title:'Chặng 3',type:'opportunity',content:['Tích lũy đủ kinh nghiệm để tạo ra giá trị và gây ảnh hưởng rộng lớn hơn.','Chia sẻ kiến thức và câu chuyện để truyền cảm hứng cho người khác.','Phát triển phong cách cá nhân độc đáo trong lĩnh vực sáng tạo.']},
+    gd3_chan4:{title:'Chặng 4',type:'opportunity',content:['Xây dựng di sản — tạo ra những công trình hoặc hệ thống có giá trị lâu dài.','Phát triển kỹ năng lãnh đạo trong việc xây dựng và quản lý đội nhóm.','Tập trung vào chất lượng và tính bền vững trong mọi dự án.']},
+    gd3_chan5:{title:'Chặng 5',type:'opportunity',content:['Cơ hội thay đổi, trải nghiệm những điều mà trước đó chưa dám thử.','Phát huy tiềm lực sáng tạo mạnh mẽ — đổi mới để thay đổi tầng nhận thức và chinh phục mục tiêu mới.','Dùng bản lĩnh đã được tôi luyện qua năm tháng để kiên định với mục tiêu.']},
+    gd3_chan6:{title:'Chặng 6',type:'opportunity',content:['Chăm sóc và quan tâm gia đình nhiều hơn; đề cao việc yêu thương bản thân đúng cách.','Thực hiện từ thiện, giúp đỡ hoàn cảnh khó khăn, lan tỏa giá trị nhân văn.','Bảo vệ và chăm sóc cho các thế hệ sau, tạo môi trường gia đình ấm cúng.']},
+    gd3_chan7:{title:'Chặng 7',type:'opportunity',content:['Chiêm nghiệm sâu sắc hơn về các quy luật của vũ trụ và kết nối với bản thể bên trong.','Tri thức sẽ giúp trở thành người có tầm nhìn rộng, được mọi người tin tưởng và tìm đến xin lời khuyên.','Có tầm nhìn xa trong một lĩnh vực để tạo ra giá trị bền lâu cho xã hội.']},
+    gd3_chan8:{title:'Chặng 8',type:'opportunity',content:['Phát triển và mở rộng ảnh hưởng trong lĩnh vực chuyên môn.','Cơ hội xây dựng tài sản và di sản tài chính bền vững.','Phát triển kỹ năng lãnh đạo ở tầm cao hơn, quản trị những dự án lớn.']},
+    gd3_chan9:{title:'Chặng 9',type:'opportunity',content:['Mở rộng tầm nhìn và phụng sự cộng đồng — những trải nghiệm đa dạng giúp trưởng thành và bao dung.','Hoàn tất và buông bỏ chu kỳ cũ — việc buông bỏ đúng lúc giúp giải phóng năng lượng.','Lan tỏa tri thức — phát huy năng lực giảng dạy, cố vấn hoặc tham gia dự án phục vụ cộng đồng.']},
+    gd3_chan11:{title:'Chặng 11',type:'opportunity',content:['Trực giác nhạy bén — kết nối nhiều hơn với trực giác, được trực giác dẫn đường trong cải thiện bản thân.','Khai mở trí tuệ — có khả năng đạt tầm nhận thức cao và chia sẻ tri thức cho người khác.','Truyền cảm hứng và cân bằng cảm xúc — những cơ hội xuất hiện để nhận được sự công nhận và danh tiếng.']},
+    // GIAI ĐOẠN 3 — Thách thức
+    gd3_thach0:{title:'Thách thức 0',type:'challenge',content:['Lựa chọn cuộc sống bứt phá, thay đổi bản thân hay phụ thuộc vào dòng chảy của cuộc sống — hoàn toàn là quyết định của mỗi người.'],solution:['Chấp nhận và biết ơn — chỉ số này thể hiện sự may mắn trong mọi việc.','Tin tưởng vào sức mạnh tiềm tàng của bản thân; nuôi dưỡng lòng tự trọng.']},
+    gd3_thach1:{title:'Thách thức 1',type:'challenge',content:['Gặp khó khăn trong việc đứng lên bảo vệ giá trị của bản thân.','Bị phụ thuộc vào ý kiến của mọi người và không tự chủ được trong quyết định.'],solution:['Tin tưởng bản thân: tự tin rằng bản thân được sinh ra với khả năng giải quyết các vấn đề.','Chăm chỉ làm việc và phát triển tư duy độc lập thông qua việc tự quyết và dám làm.']},
+    gd3_thach2:{title:'Thách thức 2',type:'challenge',content:['Dễ hi sinh bản thân quá mức cho người khác.','Khó đứng vững trước áp lực và cần được người khác công nhận.','Cảm thấy chạnh lòng khi không có ai đồng hành cùng.'],solution:['Học tập và rèn luyện không ngừng để có quyết định đúng đắn trước các lựa chọn.','Mở lòng với mọi người: tháo bỏ lớp mặt nạ thờ ơ, cởi mở và chủ động hơn trong việc kết nối.']},
+    gd3_thach3:{title:'Thách thức 3',type:'challenge',content:['Khó tập trung và hoàn thành những cam kết dài hạn.','Dễ bị phân tâm bởi những cơ hội mới và thú vui nhất thời.','Thiếu kỷ luật trong việc phát triển tài năng.'],solution:['Thiết lập kỷ luật sáng tạo: dành thời gian có cấu trúc cho việc phát triển tài năng.','Hoàn thiện những dự án và cam kết đã có trước khi bắt đầu điều mới.']},
+    gd3_thach4:{title:'Thách thức 4',type:'challenge',content:['Quá bảo thủ và ngại thay đổi trong giai đoạn cần sự linh hoạt.','Có thể quá cứng nhắc trong tư duy hoặc phương pháp làm việc.','Dễ bị stress khi không thể kiểm soát mọi thứ.'],solution:['Phát triển sự linh hoạt trong tư duy và phương pháp.','Học cách buông bỏ nhu cầu kiểm soát mọi chi tiết.']},
+    gd3_thach5:{title:'Thách thức 5',type:'challenge',content:['Gặp khó khăn trong việc ổn định và tập trung vào một hướng.','Dễ bị kéo đi bởi nhiều cơ hội, phân tán sức lực.','Thận trọng về pháp lý — không nên liều lĩnh.'],solution:['Rèn luyện khả năng tập trung và cam kết với các mục tiêu dài hạn.','Cân bằng giữa nhu cầu thay đổi và sự ổn định cần thiết.']},
+    gd3_thach6:{title:'Thách thức 6',type:'challenge',content:['Khó cân bằng giữa trách nhiệm gia đình và nhu cầu phát triển cá nhân.','Dễ hy sinh quá mức cho gia đình mà bỏ quên bản thân.','Có thể gặp xung đột giữa trách nhiệm và mong muốn tự do cá nhân.'],solution:['Thiết lập ranh giới rõ ràng giữa trách nhiệm gia đình và phát triển cá nhân.','Học cách yêu thương có trí tuệ, cho đi mà không mất đi bản thân.']},
+    gd3_thach7:{title:'Thách thức 7',type:'challenge',content:['Dễ cô lập, khó gần — làm việc nhóm gặp khó khăn.','Tiêu chuẩn cao, khó tính trong các mối quan hệ chuyên nghiệp.','Hay nhìn vào mặt trái vấn đề, có thể sợ không dám hành động.'],solution:['Học cách chia sẻ với mọi người và cần 1 người bạn tri kỉ.','Tìm cho mình môi trường tích cực, luôn nâng cao tri thức và tầm hiểu biết.']},
+    gd3_thach8:{title:'Thách thức 8',type:'challenge',content:['Dễ đồng nhất giá trị bản thân với chức vụ, tài sản hoặc mức độ ảnh hưởng.','Áp lực bảo vệ thành quả, đầu tư hoặc trách nhiệm tài chính có thể làm tăng lo âu.','Khó chấp nhận việc chia sẻ quyền lực, ủy quyền hoặc thay đổi vai trò.'],solution:['Xây dựng hệ thống quản trị tài chính và tài sản dài hạn, ưu tiên minh bạch và an toàn.','Học cách ủy quyền và phát triển người kế nhiệm thay vì giữ mọi quyền kiểm soát.']},
+    gd3_thach9:{title:'Thách thức 9',type:'challenge',content:['Nuối tiếc quá khứ, khó rời khỏi một vai trò hoặc mối quan hệ từng tạo nên bản sắc.','Dễ mang theo sự thất vọng, oán trách hoặc cảm giác chưa được ghi nhận.','Lý tưởng lớn nhưng thiếu ưu tiên, khiến nguồn lực bị phân tán.'],solution:['Thực hành tha thứ và hoàn tất: ghi nhận điều đã đạt được, rút bài học.','Thiết lập ranh giới rõ ràng về thời gian, tiền bạc và cảm xúc khi hỗ trợ người khác.']},
+    // GIAI ĐOẠN 4 — Chặng
+    gd4_chan1:{title:'Chặng 1',type:'opportunity',content:['Trở thành nhà lãnh đạo giàu kinh nghiệm — được tín nhiệm, nhận được sự công nhận và tôn trọng từ mọi người.','Khả năng tiên phong và đổi mới — sẵn sàng cập nhật và làm quen với những thứ mới mẻ.','Tập trung ưu tiên bản thân — dành sự quan tâm cho hạnh phúc cá nhân, độc lập và tự quyết.']},
+    gd4_chan2:{title:'Chặng 2',type:'opportunity',content:['Nuôi dưỡng những mối quan hệ có chiều sâu — dành cho gia đình, bạn bè và cộng đồng.','Trở thành người kết nối và cố vấn — đóng vai trò hòa giải hoặc giữ gìn sự gắn kết.','Tin tưởng trực giác và chăm sóc đời sống tinh thần — duy trì cân bằng cảm xúc và sức khỏe.']},
+    gd4_chan3:{title:'Chặng 3',type:'opportunity',content:['Định hình rõ nét thương hiệu cá nhân và có cơ hội chia sẻ, truyền cảm hứng tới mọi người.','Thể hiện bản thân — tự tin chia sẻ kinh nghiệm và sẵn sàng tỏa sáng.','Nhận thức được vai trò, sứ mệnh của bản thân: chia sẻ giá trị, niềm tin với thế giới.']},
+    gd4_chan4:{title:'Chặng 4',type:'opportunity',content:['Hoàn thiện những hành trình quan trọng — khép lại các dự án, vai trò đã hoàn thành nhiệm vụ.','Trở thành người truyền dẫn kinh nghiệm — đào tạo, cố vấn hoặc truyền cảm hứng cho thế hệ sau.','Phụng sự với tầm nhìn rộng — tham gia dự án xã hội, giáo dục, thiện nguyện.']},
+    gd4_chan5:{title:'Chặng 5',type:'opportunity',content:['Cơ hội thay đổi và trải nghiệm những điều mới mẻ, giúp tinh thần vui vẻ và tích cực hơn.','Không chỉ quan tâm đến sức khỏe thể chất, cũng nên chú trọng đến sự phát triển tinh thần và trí tuệ.','Dùng bản lĩnh đã được tôi luyện để kiên định với mục tiêu và sứ mệnh.']},
+    gd4_chan6:{title:'Chặng 6',type:'opportunity',content:['Trao đi yêu thương và bảo vệ các thế hệ sau, tạo môi trường gia đình ấm cúng.','Học thêm các bộ môn để kết nối với bản ngã bên trong: thiền, yoga, đọc sách, hòa mình với thiên nhiên.','Thực hành lòng từ bi mỗi ngày, lan tỏa giá trị nhân văn.']},
+    gd4_chan7:{title:'Chặng 7',type:'opportunity',content:['Nhận thức được vai trò và sứ mệnh của bản thân: chia sẻ những giá trị, niềm tin và kinh nghiệm với thế giới.','Học thêm các bộ môn để kết nối với bản ngã bên trong.','Thực hành lòng từ bi mỗi ngày.']},
+    gd4_chan8:{title:'Chặng 8',type:'challenge',content:['Lo lắng thái quá về vấn đề tài chính.','Dễ ám ảnh bởi nhu cầu vật chất.'],solution:['Vượt qua tham vọng vật chất: tránh tham công tiếc việc, quan tâm đến khía cạnh tinh thần nhiều hơn.','Kiểm soát cái tôi, tránh lạm dụng quyền lực để áp đặt người khác.']},
+    gd4_chan9:{title:'Chặng 9',type:'opportunity',content:['Mở rộng tầm nhìn và sống với lý tưởng lớn — cống hiến giúp xã hội chuyển hóa tốt đẹp.','Hoàn tất và buông bỏ chu kỳ cũ — việc biết kết thúc đúng lúc giúp nhẹ nhàng và sáng suốt.','Lan tỏa tri thức — chuyển hóa bài học thành tri thức để đào tạo, cố vấn, truyền cảm hứng.']},
+    gd4_chan11:{title:'Chặng 11',type:'opportunity',content:['Trực giác nhạy bén — kết nối sâu sắc với nội tâm, được trực giác dẫn đường.','Khai mở trí tuệ — đạt tầm nhận thức cao và chia sẻ tri thức dễ dàng.','Cân bằng cảm xúc — truyền cảm hứng cho người khác, nhận được sự công nhận.']},
+    // GIAI ĐOẠN 4 — Thách thức
+    gd4_thach0:{title:'Thách thức 0',type:'challenge',content:['Chỉ số này đại diện cho những thử thách đến từ chính lựa chọn của bản thân.'],solution:['Chấp nhận và biết ơn — biết ơn vũ trụ vì sự may mắn trong mọi việc.','Tin tưởng vào sức mạnh tiềm tàng của bản thân; nuôi dưỡng lòng tự trọng.']},
+    gd4_thach1:{title:'Thách thức 1',type:'challenge',content:['Gặp khó khăn trong việc đứng lên bảo vệ giá trị của bản thân.','Bị phụ thuộc vào ý kiến của mọi người và không tự chủ được trong quyết định.'],solution:['Tin tưởng bản thân: tự tin rằng bản thân được sinh ra với khả năng giải quyết các vấn đề.']},
+    gd4_thach2:{title:'Thách thức 2',type:'challenge',content:['Dễ hy sinh bản thân quá mức; khó thiết lập ranh giới lành mạnh.','Cảm giác cô đơn hoặc thiếu sự đồng hành.'],solution:['Nuôi dưỡng các mối quan hệ chân thực và thiết lập ranh giới rõ ràng.','Chăm sóc bản thân trước khi chăm sóc người khác.']},
+    gd4_thach3:{title:'Thách thức 3',type:'challenge',content:['Khó duy trì năng lượng sáng tạo và niềm vui sống theo thời gian.','Dễ bị phân tâm bởi những thú vui nhất thời.'],solution:['Tìm kiếm những hoạt động mang lại niềm vui thực sự và có ý nghĩa.','Chia sẻ trí tuệ và trải nghiệm với thế hệ sau.']},
+    gd4_thach4:{title:'Thách thức 4',type:'challenge',content:['Quá cứng nhắc và khó thích nghi với những thay đổi trong giai đoạn sau của cuộc đời.','Có thể quá tập trung vào trách nhiệm mà quên đi việc tận hưởng cuộc sống.'],solution:['Phát triển sự linh hoạt và khả năng buông bỏ.','Học cách tận hưởng cuộc sống trong hiện tại.']},
+    gd4_thach5:{title:'Thách thức 5',type:'challenge',content:['Khó duy trì sự ổn định và an toàn trong giai đoạn cần sự bình yên.','Dễ bị cuốn vào những thay đổi không cần thiết.'],solution:['Rèn luyện khả năng tìm kiếm sự bình an trong sự ổn định.','Tập trung vào những điều thực sự quan trọng và có ý nghĩa.']},
+    gd4_thach6:{title:'Thách thức 6',type:'challenge',content:['Dễ lo lắng quá mức cho con cháu hoặc cộng đồng.','Có xu hướng gánh thay trách nhiệm của người khác, dẫn đến kiệt sức.'],solution:['Học cách trao truyền thay vì gánh thay — chia sẻ kinh nghiệm, tôn trọng quyền lựa chọn của thế hệ sau.','Chọn hình thức phụng sự phù hợp với sức khỏe và nguồn lực.']},
+    gd4_thach7:{title:'Thách thức 7',type:'challenge',content:['Khó chia sẻ bản thân và kết nối với người khác trong giai đoạn cuối đời.','Có thể rơi vào cô lập tinh thần.'],solution:['Mở lòng chia sẻ kinh nghiệm và trí tuệ với người khác.','Tìm kiếm cộng đồng tinh thần có cùng giá trị.']},
+    gd4_thach8:{title:'Thách thức 8',type:'challenge',content:['Lo lắng thái quá về vấn đề tài chính.','Dễ ám ảnh bởi nhu cầu vật chất và quyền lực.'],solution:['Vượt qua tham vọng vật chất — quan tâm đến khía cạnh tinh thần nhiều hơn.','Kiểm soát cái tôi, tránh lạm dụng quyền lực để áp đặt người khác.']},
+    gd4_thach9:{title:'Thách thức 9',type:'challenge',content:['Khó buông bỏ quá khứ, tiếc nuối những cơ hội, vai trò hoặc mối quan hệ đã đi qua.','Có thể cảm thấy cô đơn, thất vọng khi các giá trị cũ không còn phù hợp.','Có xu hướng lý tưởng hóa sự cống hiến và bỏ quên nhu cầu sức khỏe, nghỉ ngơi.'],solution:['Thực hành chấp nhận và biết ơn: nhìn lại những điều đã hoàn thành.','Tha thứ cho bản thân và người khác để giải phóng cảm xúc tồn đọng.']},
+  };
+
+  // Lưu state vào global để openPeakDetail (bên ngoài) truy cập được
+  window._pyrState={
+    PEAK_DATA, PEAK_VALS, PEAK_RANGES, thachVals,
+    COLORS:['#1D2951','#1D2951','#4F6D5A','#B8905A']
+  };
 
   el('pyr-cards').innerHTML=[0,1,2,3].map(i=>`
-    <div style="background:var(--white);border-radius:14px;padding:14px 16px;border-left:4px solid ${PEAK_COLORS[i]};display:flex;align-items:center;gap:14px;">
-      <div style="flex-shrink:0;width:46px;height:46px;border-radius:50%;background:${PEAK_COLORS[i]};display:flex;align-items:center;justify-content:center;">
-        <span style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:${i===3?'#1D2951':'#C9A96E'};font-variant-numeric:tabular-nums lining-nums;">${PEAK_VALS[i]}</span>
-      </div>
+    <div onclick="openPeakDetail(${i},${PEAK_VALS[i]},${thachVals[i]})"
+         style="background:var(--white);border-radius:14px;padding:16px 18px;border-left:4px solid ${PEAK_COLORS[i]};display:flex;align-items:center;gap:14px;cursor:pointer;transition:box-shadow .2s,transform .15s;"
+         onmouseenter="this.style.boxShadow='0 4px 16px rgba(29,41,81,.12)';this.style.transform='translateY(-1px)'"
+         onmouseleave="this.style.boxShadow='';this.style.transform=''">
+      <!-- Nội dung trái -->
       <div style="flex:1;min-width:0;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${PEAK_COLORS[i]};margin-bottom:3px;">${PEAK_LABELS[i]} · ${PEAK_AGES[i]} tuổi</div>
-        <div style="font-size:12px;color:var(--bark);">${PEAK_SUBS[i]}</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:${PEAK_COLORS[i]};margin-bottom:4px;">Giai đoạn ${i+1}</div>
+        <div style="font-size:13px;color:var(--bark);">${PEAK_RANGES[i]}</div>
       </div>
-      <div style="flex-shrink:0;font-family:'DM Sans',sans-serif;font-size:22px;font-weight:700;color:${PEAK_COLORS[i]};font-variant-numeric:tabular-nums lining-nums;opacity:.15;">${PEAK_VALS[i]}</div>
+      <!-- Nội dung phải: vòng tròn Chặng + Thách thức -->
+      <div style="flex-shrink:0;display:flex;align-items:center;gap:10px;">
+        <div style="text-align:center;">
+          <div style="width:44px;height:44px;border-radius:50%;background:${PEAK_COLORS[i]};display:flex;align-items:center;justify-content:center;margin-bottom:3px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:${i===3?'#C9A96E':'white'};font-variant-numeric:tabular-nums lining-nums;">${PEAK_VALS[i]}</span>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:10px;color:var(--mist);">T.thức ${thachVals[i]}</div>
+        </div>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${PEAK_COLORS[i]}" stroke-width="2" opacity=".4"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
     </div>`).join('');
 
   showScreen('s-pyramid');

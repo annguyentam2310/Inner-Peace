@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ══════════════════════════════════════════════════════════
+     CHỖ SỐ 1 — ĐIỀN TIÊU ĐỀ BÀI VIẾT
+     (Sửa 3 chỗ giống nhau: dòng này, dòng <meta property="og:title">
+      ngay bên dưới, và dòng <h1> ở phần thân trang — tìm dòng 137)
+     ══════════════════════════════════════════════════════════ -->
+<title>"Khi sự đủ đầy từ bên ngoài vẫn không giúp ta bình an bên trong" — Blog Tâm An Nguyện</title>
+<meta name="description" content="Vì sao ta luôn thấy mình thiếu, dù đã đạt được nhiều điều? Một bài viết về việc buông tư duy 'nếu... thì...' và học cách sống đủ đầy ngay từ hiện tại.">
+
+<meta property="og:title" content="Khi sự đủ đầy từ bên ngoài vẫn không giúp ta bình an bên trong"; — Blog Tâm An Nguyện">
+<meta property="og:description" content="Vì sao ta luôn thấy mình thiếu, dù đã đạt được nhiều điều? Một bài viết về việc buông tư duy 'nếu... thì...' và học cách sống đủ đầy ngay từ hiện tại.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tamannguyen.com/blog/du-day-tu-goc/">
+<link rel="canonical" href="https://tamannguyen.com/blog/du-day-tu-goc/">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --cream:#F5EFE6;--cream2:#FAF6F0;--gold:#C9A96E;--gold2:#B8905A;
+  --gold-light:#E8D5B0;--gold-pale:#FBF4E8;--navy:#1D2951;--navy-soft:#2D3F6B;
+  --ink:#3D2B1F;--bark:#8B6F5E;--mist:#B8A99A;--rose:#D4A5A5;
+  --rose-light:#F0DEDE;--white:#FFFFFF;--teal:#3D7D6B;--teal-bg:#EEF7F4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;color:var(--navy);font-weight:600;line-height:1.15;text-wrap:balance}
+@media(max-width:380px){.hero h1,.page-hero h1{font-size:28px}}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold2)}
+
+header{position:sticky;top:0;z-index:50;background:rgba(245,239,230,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold-light)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto}
+.brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--navy);letter-spacing:.5px}
+.brand span{color:var(--gold2);font-style:italic}
+.nav-links{display:none;gap:32px;font-size:14px;font-weight:500;color:var(--navy-soft)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--gold2)}
+.nav-links a.active{color:var(--gold2)}
+.nav-cta{background:var(--navy);color:var(--white);font-size:13px;font-weight:600;padding:11px 22px;border-radius:100px;white-space:nowrap;transition:background .2s}
+.nav-cta:hover{background:var(--navy-soft)}
+@media(min-width:860px){.nav-links{display:flex}}
+.menu-btn{display:flex;background:none;border:none;font-size:22px;color:var(--navy);cursor:pointer}
+@media(min-width:860px){.menu-btn{display:none}}
+#mobile-menu{display:none;flex-direction:column;gap:18px;padding:20px 24px 28px;border-top:1px solid var(--gold-light);font-size:15px;font-weight:500;color:var(--navy-soft)}
+#mobile-menu.open{display:flex}
+
+.btn-primary{background:var(--navy);color:var(--white);padding:15px 30px;border-radius:100px;font-size:15px;font-weight:600;transition:transform .2s,background .2s;display:inline-block;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--navy-soft);transform:translateY(-2px)}
+
+.final-cta{background:var(--navy);padding:90px 24px;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(201,169,110,.15),transparent 55%)}
+.final-cta h2{color:var(--white);font-size:clamp(28px,5vw,42px);max-width:640px;margin:0 auto 18px;position:relative}
+.final-cta p{color:#B9C2D9;max-width:480px;margin:0 auto 32px;font-size:15px;position:relative}
+.final-cta .btn-primary{background:var(--white);color:var(--navy);position:relative;z-index:2}
+.final-cta .btn-primary:hover{background:var(--gold-pale);color:var(--navy)}
+
+footer{background:var(--cream2);border-top:1px solid var(--gold-light);padding:56px 24px 30px}
+.foot-grid{max-width:1080px;margin:0 auto 40px;display:grid;gap:32px}
+@media(min-width:700px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr}}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--navy);margin-bottom:10px}
+.foot-brand span{color:var(--gold2);font-style:italic}
+.foot-tag{font-size:13px;color:var(--bark);max-width:280px}
+.foot-col h5{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+.foot-col a{display:block;font-size:14px;color:var(--bark);margin-bottom:10px;transition:color .2s}
+.foot-col a:hover{color:var(--gold2)}
+.foot-bottom{max-width:1080px;margin:0 auto;padding-top:24px;border-top:1px solid var(--gold-light);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12px;color:var(--mist)}
+
+/* --- trang bài viết --- */
+.page-hero{padding:56px 24px 30px;text-align:center}
+.back-link{display:inline-block;font-size:13px;font-weight:600;color:var(--gold2);margin-bottom:20px}
+.page-hero .post-date{display:block;font-size:12px;color:var(--mist);margin-bottom:14px;letter-spacing:1px;text-transform:uppercase}
+.page-hero h1{font-size:clamp(28px,5vw,42px);margin-bottom:14px;max-width:760px;margin-left:auto;margin-right:auto}
+.content-block{max-width:700px;margin:0 auto;padding:0 24px 60px}
+.content-block h2{font-size:24px;margin:40px 0 14px}
+.content-block h2:first-child{margin-top:0}
+.content-block p{color:var(--ink);font-size:16px;margin-bottom:16px;line-height:1.75}
+.content-block ul{margin:0 0 16px 20px;color:var(--ink);font-size:16px}
+.content-block li{margin-bottom:8px}
+.content-block img{width:100%;border-radius:16px;margin:28px 0}
+.content-block figure{margin:28px 0}
+.content-block figcaption{text-align:center;font-size:13px;color:var(--mist);margin-top:10px;font-style:italic}
+.content-block blockquote{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:24px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--navy-soft)}
+.post-signature{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--gold-light)}
+.post-signature p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--navy-soft)}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="/" class="brand">Tâm <span>An Nguyện</span></a>
+    <div class="nav-links">
+      <a href="/gioi-thieu">Giới thiệu</a>
+      <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+      <a href="/ai-coach">AI Coach</a>
+      <a href="/blog" class="active">Blog</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="/app" class="nav-cta" id="cta-desktop">Khám phá ngay</a>
+      <button class="menu-btn" id="menu-toggle" aria-label="Mở menu">☰</button>
+    </div>
+  </nav>
+  <div id="mobile-menu">
+    <a href="/gioi-thieu">Giới thiệu</a>
+    <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+    <a href="/ai-coach">AI Coach</a>
+    <a href="/blog">Blog</a>
+    <a href="/app" style="color:var(--gold2);font-weight:700">Khám phá La Bàn Nội Tâm →</a>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <a href="/blog" class="back-link">← Quay lại Blog</a>
+
+    <!-- Ngày đăng — chị nhớ sửa lại đúng ngày thật -->
+    <span class="post-date">29 Tháng 8, 2026</span>
+
+    <h1>Khi sự đủ đầy từ bên ngoài vẫn không giúp ta bình an bên trong</h1>
+  </div>
+</section>
+
+<div class="content-block">
+
+  <!-- ══════════════════════════════════════════════════════════
+       CHỖ SỐ 4 — ĐIỀN NỘI DUNG BÀI VIẾT
+       Xoá hết phần mẫu bên dưới, viết nội dung thật của chị vào.
+       Có thể dùng các thẻ này để định dạng:
+         <h2>...</h2>         → tiêu đề phụ trong bài
+         <p>...</p>           → đoạn văn thường
+         <ul><li>...</li></ul> → gạch đầu dòng
+         <blockquote>...</blockquote> → trích dẫn nổi bật
+       ══════════════════════════════════════════════════════════ -->
+
+  <p>"Vì sao giữa rất nhiều những điều đang có, chúng ta vẫn thấy mình chưa có đủ?"</em></p>
+
+  <p>Chúng ta đang sống trong một nền văn minh luôn nhắc chúng ta "chưa có đủ", buộc ta luôn tự nhủ với bản thân "chỉ cần cố thêm một chút nữa...rồi chút nữa". Rất hiếm khi nào ta hỏi mình ngày hôm nay mình có bình an không, mình có hạnh phúc không? Mỗi ngày, ta nhìn cuộc đời người khác từ khắp nơi trên thế giới qua chiếc màn hình điện thoại, đâu còn thời gian chất lượng dành cho chính bản thân mình.
+  <h2>Sức mạnh của tư duy đúng</h2>
+
+  <p> Não bộ chúng ta được lập trình dựa trên nền tảng của sự "thiếu thốn". Ta chỉ luôn nhìn vào cái ta còn khuyết hơn là nhìn vào cái ta "đủ".</p>
+  
+  <p>"Thiếu thốn" không phải là một điều đáng sợ. Hãy hình thành một góc nhìn mới, một tư duy mới về sự "thiếu thốn".</p> 
+
+  <p>"Thiếu thốn" là một điều rất tự nhiên của sự sống. Mọi thứ đều vận hành theo chu kỳ đầy - vơi, sinh - diệt, nở hoa - lặng nghỉ.</p>
+
+  <p>Hãy cùng quan sát mặt trăng, nó có khi tròn, khi khuyết. Nhưng chẳng ai bảo trăng khuyết là trăng bị thiếu, cũng chẳng ai nói trăng khuyết là mặt trăng không đẹp. Thủy triều có lúc dâng lên, có lúc hạ xuống. Một cái cây có những mùa lá xanh ngát, nhưng cũng có mùa trút lá, dồn nhựa sống vào sâu bên trong.</p>
+
+  <p>Không ai nhìn trăng khuyết rồi kết luận mặt trăng không còn giá trị. Không ai nhìn cái cây mùa đông trơ trụi rồi nghĩ rằng nó đã chết.</p>
+
+  <p>"Thiếu" vì thế không phải một điều đáng sợ hay bất thường, nó chỉ là một trạng thái, hay một dòng vận động của sự sống có lúc này, lúc kia.</p>
+
+  <h2>Mô thức tư duy chưa đúng</h2>
+
+  <p>Thử để ý mà xem, ta hay tự nói với mình những câu như:</p>
+
+  <ul>
+    <li>"Tôi chưa biết" — rồi trong đầu tự dịch thành <em>"tôi không đủ thông minh."</em></li>
+    <li>"Tôi chưa thành công" — rồi tự suy diễn <em>"tôi không đủ giỏi."</em></li>
+    <li>"Tôi chưa tìm được mối quan hệ như ý" — rồi tự kết luận <em>"tôi không đáng để được yêu thương."</em></li>
+  </ul>
+
+  <p>"Tôi chưa..." vốn chỉ là bạn chưa có tại thời điểm hiện tại. Nhưng khi bạn nói "tôi không đủ...", đó lại là bạn bắt đầu định nghĩa về mình. Chỉ cần đổi khung suy nghĩ là niềm tin về bản thân đã thay đổi.</p>
+
+  <h2>Vậy điều gì khiến chúng ta dần rời xa gốc rễ của sự "đủ đầy"?</h2>
+
+  <p>Có ba sự đứt gãy khiến con người chúng ta luôn cảm thấy thiếu:</p>
+
+  <p><strong>Đứt gãy thứ nhất:</strong> Đánh đồng giá trị bản thân với kết quả bên ngoài — với những gì mình làm được, với những gì mình có.</p>
+
+  <p><strong>Đứt gãy thứ hai:</strong> Xem đủ đầy là điểm đến, thay vì điểm xuất phát. Ta tin rằng ở đâu đó phía trước kia, sẽ có lúc ta cảm thấy đủ — khi có thêm thu nhập, khi con cái thành công, khi đạt được một cột mốc nào đó.</p>
+  
+  </p>Bạn nhận ra điều gì không? Ta đang sống theo công thức "Nếu...thì". Nếu ta thế này, thì ta mới được thế kia. Ta đang trao sự bình an của mình cho một thể điều kiện ở tương lai.</p>
+
+  <p><strong>Đứt gãy thứ ba:</strong> Quên rằng sự sống luôn vận hành từ bên trong. Rất ít người được huấn luyện để sống với thế giới bên trong mình. Mỗi khi có một suy nghĩ bất như ý xuất hiện, mấy ai biết cách xử lý? Mỗi khi một tiếng nói nhỏ trong tâm trí hiện lên, mấy ai biết cách lắng nghe?</p>
+
+  <h2>Sức mạnh của tư duy đúng</h2>
+
+  <p>Khi bạn thay đổi góc nhìn về sự "thiếu thốn", hiểu rằng nó chỉ là một trạng thái tự nhiên của cuộc sống, thì lúc đó tư duy của bạn sẽ được lập trình dựa trên sự đủ đầy.</p>
+
+  <p>Thay vì hỏi "hôm nay mình đã đạt được gì?", hãy hỏi: <strong>"hôm nay mình đang sống thế nào?"</strong></p>
+
+  <p>Thay vì "mình còn thiếu điều gì nữa?", hãy hỏi: <strong>"điều gì đang nuôi dưỡng tâm hồn mình?"</strong></p>
+
+  <p>"Đổi câu hỏi, đổi cuộc đời".</p>
+  
+  <p>"Đủ đầy" — không phải là đích đến, mà là điểm xuất phát. Nó phụ thuộc vào việc ta lựa chọn "có thêm bao nhiêu" hay "bớt đi bao nhiêu" để cuộc sống này có được sự "đủ đầy".</p>
+
+  <div class="post-signature">
+    <p>— An Nguyện</p>
+  </div>
+
+</div>
+
+</main>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Muốn hiểu rõ hơn về chính mình?</h2>
+    <p>Khám phá La Bàn Nội Tâm — bước đầu tiên trên hành trình quay về bên trong.</p>
+    <a href="/app" class="btn-primary">Khám phá La Bàn Nội Tâm</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">Tâm <span>An Nguyện</span></div>
+      <p class="foot-tag">Thấu hiểu bản thân, làm chủ cuộc đời. Giúp bạn định vị giá trị bản thân và tìm lại phương hướng trong sự nghiệp.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Khám phá</h5>
+      <a href="/gioi-thieu">Giới thiệu</a>
+      <a href="/la-ban-noi-tam">La Bàn Nội Tâm</a>
+      <a href="/ai-coach">AI Coach</a>
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="foot-col">
+      <h5>Thông tin</h5>
+      <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+      <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 A.N.T</span>
+    <span><a href="mailto:annguyen.tam2310@gmail.com" style="color:inherit">annguyen.tam2310@gmail.com</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menu-toggle').addEventListener('click',function(){
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
